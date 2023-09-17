@@ -1,0 +1,18 @@
+#carouselExampleInterval{
+    background-image: url("/picture/cream.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+#carousel-caption{
+    padding-bottom: 100px;
+}
+
+.carousel-indicators [data-bs-target]{
+    background-color: orange;
+}
+
+#carousel-caption p, #carousel-caption h5{
+    color: orange;
+}
