@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\AuthenticationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Default Routes
 Route::get('/', [IndexController::class, 'index']);
+
+// Login Routes
+Route::get('/login', [AuthenticationController::class, 'show_login']);
+Route::get('/register', [AuthenticationController::class, 'show_register']);
 
 // Student Routes
 
