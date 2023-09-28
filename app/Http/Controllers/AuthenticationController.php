@@ -19,4 +19,9 @@ class AuthenticationController extends Controller
     {
         return view('content.auth.register');
     }
+
+    public function show_dashboard()
+    {
+        return view('content.student.assignment');
+    }
 }

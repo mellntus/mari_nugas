@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Welcome to MariNugas - Start Create and Submit Your Task Here</title>
+    <title>Dashboard - Mari Nugas</title>
 
     {{-- Bootstrap CSS --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -16,18 +16,31 @@
     {{-- Jquery --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-    {{-- CSS --}}
-    <link rel="stylesheet" href="/css/app.css?v=<?php echo time(); ?>">
+    <style>
+        body{
+            position:fixed;
+            padding:0;
+            margin:0;
+
+            top:0;
+            left:0;
+
+            width: 100%;
+            height: 100%;
+            background:rgba(255,255,255,0.5);
+        }
+    </style>
 </head>
-<body class="overflow-y-hidden">
+<body class="overflow-y-hidden d-flex">
     {{-- CSRF HERE --}}
-    {{-- Header --}}
-    <section id="header">
-        @include('partials.header')
+
+    {{-- Sidebar --}}
+    <section id="sidebar">
+        @include('partials.sidebar')
     </section>
 
     {{-- Content --}}
-    <section id="main">
+    <section id="main" style="width: -webkit-fill-available; padding: 1rem!important">
         <div class="container-fluid px-0">
             @yield('content')
         </div>
