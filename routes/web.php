@@ -32,6 +32,10 @@ Route::get('/notes', [NotesController::class, 'index']);
 Route::get('/profile', [ProfileController::class, 'index']);
 Route::get('/study_groups', [ListGroupsController::class, 'index']);
 
+// Profile Page
+Route::get('/profile/edit', [ProfileController::class, 'show']);
+Route::post('/profile/update', [ProfileController::class, 'update']);
+
 // Student Routes -Detailed
 
 // Teacher Routes - Detailed

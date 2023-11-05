@@ -11,4 +11,19 @@ class ProfileController extends Controller
     {
         return view('content.profile.profile');
     }
+
+    public function show()
+    {
+        return view('content.profile.edit_profile');
+    }
+
+    public function edit()
+    {
+        //
+    }
+
+    public function update()
+    {
+        return redirect()->intended('/profile');
+    }
 }

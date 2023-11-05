@@ -7,7 +7,7 @@
                 <h3 class="mb-3" style="text-align-last: center"><strong>REGISTER</strong></h3>
                 <div class="form-input d-flex" style="justify-content: center">
                     <form class="px-3" action="/login" method="POST" style="width: -webkit-fill-available">
-                    @csrf
+                        @csrf
                         <div class="mx-0 mb-2 row">
                             <div class="col-6 col-md-3">
                                 <label for="inputEmail" class="col col-form-label">Email</label>
@@ -60,7 +60,7 @@
                                 <a href="/login">Already have an account?</a>
                             </div>
                             <div class="col-6 col-md-3" style="text-align-last: end;">
-                                <button class="btn btn-success" type="submit">Register</button>
+                                <button class="btn btn-success" type="submit">REGISTER</button>
                             </div>
                         </div>
                     </form>
