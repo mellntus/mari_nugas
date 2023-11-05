@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ListGroupsController;
 use App\Http\Controllers\ListTaskController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\NotesController;
 use Illuminate\Support\Facades\Route;
 
 /*

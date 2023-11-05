@@ -29,6 +29,10 @@
             height: 100%;
             background:rgba(255,255,255,0.5);
         }
+
+        .nav-item li a:hover{
+            background-color: blue;
+        }
     </style>
 </head>
 <body class="overflow-y-hidden d-flex">

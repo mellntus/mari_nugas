@@ -4,9 +4,9 @@
         <h2 class="fs-6">Welcome, User ABC</h2>
     </a>
     <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item">
-        <a href="/assignment" class="nav-link active" aria-current="page">
+    <ul class="nav nav-item nav-pills flex-column mb-auto">
+      <li>
+        <a href="/assignment" class="nav-link text-white" aria-current="page">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
           Assignment
         </a>
