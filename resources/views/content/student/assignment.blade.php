@@ -1,10 +1,10 @@
 @extends('layouts.user.main')
 
+@section('title')
+    <h3>Assignment</h3>
+@endsection
+
 @section('content')
-    <div class="page-title">
-        <h3>Assignment</h3>
-    </div>
-    <hr>
     <div class="table-assignment">
         <table class="table">
             <thead>

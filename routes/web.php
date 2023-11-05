@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\ListGroupsController;
+use App\Http\Controllers\ListTaskController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,10 +22,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [IndexController::class, 'index']);
 
 // Login Routes
-Route::get('/login', [AuthenticationController::class, 'show_login']);
+Route::get('/login', [AuthenticationController::class, 'index']);
 Route::get('/register', [AuthenticationController::class, 'show_register']);
-Route::get('/dashboard', [AuthenticationController::class, 'show_dashboard']);
 
-// Student Routes
+// Main Routes
+Route::get('/assignment', [ListTaskController::class, 'index']);
+Route::get('/notes', [NotesController::class, 'index']);
+Route::get('/profile', [ProfileController::class, 'index']);
+Route::get('/study_groups', [ListGroupsController::class, 'index']);
 
-// Teacher Routes
+// Student Routes -Detailed
+
+// Teacher Routes - Detailed

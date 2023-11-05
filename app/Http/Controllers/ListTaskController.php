@@ -13,7 +13,10 @@ class ListTaskController extends Controller
      */
     public function index()
     {
-        //
+        // Validation for student and teacher
+
+        // Default student assignment page as dashboard
+        return view('content.student.assignment');
     }
 
     /**

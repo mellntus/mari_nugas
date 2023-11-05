@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class AuthenticationController extends Controller
 {
@@ -10,7 +12,7 @@ class AuthenticationController extends Controller
      * Here is the controller for Login and Register
      */
 
-    public function show_login()
+    public function index()
     {
         return view('content.auth.login');
     }
@@ -20,8 +22,31 @@ class AuthenticationController extends Controller
         return view('content.auth.register');
     }
 
-    public function show_dashboard()
+    public function authenticate(Request $request)
     {
-        return view('content.student.assignment');
+        $user = User::where([
+            'email' => $request->email,
+            'password' => $request->password
+        ])->first();
+
+        if ($user) {
+            Auth::login($user);
+            $request->session()->regenerate();
+
+            return redirect()->intended('/menu');
+        }
+
+        return back()->with('loginError', 'Login Failed');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }

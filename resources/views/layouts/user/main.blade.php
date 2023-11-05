@@ -42,6 +42,10 @@
     {{-- Content --}}
     <section id="main" style="width: -webkit-fill-available; padding: 1rem!important">
         <div class="container-fluid px-0">
+            <div class="page-title">
+                @yield('title')
+            </div>
+            <hr>
             @yield('content')
         </div>
     </section>
