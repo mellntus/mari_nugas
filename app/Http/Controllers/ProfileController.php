@@ -26,4 +26,14 @@ class ProfileController extends Controller
     {
         return redirect()->intended('/profile');
     }
+
+    public function password()
+    {
+        return view('content.profile.password_profile');
+    }
+
+    public function update_password()
+    {
+        return redirect()->intended('/profile');
+    }
 }
