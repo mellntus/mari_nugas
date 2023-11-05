@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\AuthenticationController;
 
 class ProfileController extends Controller
 {
-    //
+    // Default view
     public function index()
     {
-        $data = new AuthenticationController();
-        echo $data->show_login();
+        return view('content.profile.profile');
     }
 }
