@@ -45,7 +45,7 @@ class NotesController extends Controller
      */
     public function edit(Notes $notes)
     {
-        //
+        return view("content.notes.detail_notes");
     }
 
     /**
@@ -53,7 +53,7 @@ class NotesController extends Controller
      */
     public function update(UpdateNotesRequest $request, Notes $notes)
     {
-        //
+        return redirect("/notes");
     }
 
     /**
@@ -61,6 +61,6 @@ class NotesController extends Controller
      */
     public function destroy(Notes $notes)
     {
-        //
+        return redirect("/notes");
     }
 }

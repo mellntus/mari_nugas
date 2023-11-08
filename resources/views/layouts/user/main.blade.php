@@ -16,6 +16,13 @@
     {{-- Jquery --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
+    {{-- TRIX --}}
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
+    <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
+
+    {{-- jquert --}}
+    <script src="/js/jquery-3.6.0.js"></script>
+
     <style>
         body{
             position:fixed;

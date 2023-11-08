@@ -9,7 +9,7 @@
         width: 100%;
         height: 100%;
         background: green;
-        margin-top: 15%; 
+        margin-top: 10%; 
         margin-bottom: 15%">
         <div class="profile-square" style="background: #F0F0F0; padding: 5%">
             <div class="profile-edit-section" style="display: flex; justify-content: flex-end">
