@@ -1,7 +1,7 @@
 @extends('layouts.user.main')
 
 @section('title')
-    <h3>Assignment</h3>
+    <h3>Student Assignment</h3>
 @endsection
 
 @section('content')
@@ -23,21 +23,21 @@
                 <td>Lorem Ipsum</td>
                 <td style="background-color: green"><strong>Submitted</strong></td>
                 <td>2023-12-09</td>
-                <td><a href="#">View</a><span>          <a href="#">Submit</a></span></td>
+                <td><a href="/student-assignment/id/detail">View</a><span>          <a href="/student-assignment/id/submit">Submit</a></span></td>
             </tr>
             <tr>
                 <th scope="row"></th>
                 <td>Dolored Lamu</td>
                 <td style="background-color: red"><strong>Expired</strong></td>
                 <td>2023-12-09</td>
-                <td><a href="#">View</a><span>          <a href="#">Submit</a></span></td>
+                <td><a href="/student-assignment/id/detail">View</a><span>          <a href="/student-assignment/id/submit">Submit</a></span></td>
             </tr>
             <tr>
                 <th scope="row"></th>
                 <td>Skuknu Rekmend</td>
                 <td style="background-color: red"><strong>Not Submitted</strong></td>
                 <td>2023-12-09</td>
-                <td><a href="#">View</a><span>          <a href="#">Submit</a></span></td>
+                <td><a href="/student-assignment/id/detail">View</a><span>          <a href="/student-assignment/id/submit">Submit</a></span></td>
             </tr>
             </tbody>
         </table>

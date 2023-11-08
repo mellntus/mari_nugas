@@ -27,7 +27,6 @@ Route::get('/login', [AuthenticationController::class, 'index']);
 Route::get('/register', [AuthenticationController::class, 'show_register']);
 
 // Main Routes
-Route::get('/assignment', [ListTaskController::class, 'index']);
 Route::get('/study_groups', [ListGroupsController::class, 'index']);
 
 // Profile Page
@@ -41,11 +40,20 @@ Route::post('/profile/update-password', [ProfileController::class, 'update_passw
 
 // Note Page
 Route::get('/notes', [NotesController::class, 'index']);
+// Note Page - Create
+Route::get('/notes/prepare', [NotesController::class, 'prepare']);
+Route::post('/notes/create', [NotesController::class, 'create']);
 // Note Page - Detail
 Route::get('/notes/id/detail', [NotesController::class, 'edit']);
 Route::post('/notes/id/update', [NotesController::class, 'update']);
 Route::post('/notes/id/destroy', [NotesController::class, 'destroy']);
 
 // Student Routes -Detailed
+// Assignment
+Route::get('/student-assignment', [ListTaskController::class, 'index_student']);
+Route::get('/student-assignment/id/detail', [ListTaskController::class, 'show_assignment_student']);
+Route::get('/student-assignment/id/submit', [ListTaskController::class, 'edit_assignment_student']);
+Route::post('/student-assignment/id/create', [ListTaskController::class, 'submit_assignment_student']);
 
 // Teacher Routes - Detailed
+Route::get('/assignment', [ListTaskController::class, 'index_student']);

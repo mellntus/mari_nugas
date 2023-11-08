@@ -21,7 +21,12 @@ class NotesController extends Controller
      */
     public function create()
     {
-        //
+        return view("content.notes.notes");
+    }
+
+    public function prepare()
+    {
+        return view("content.notes.create_notes");
     }
 
     /**

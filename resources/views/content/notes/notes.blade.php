@@ -5,6 +5,9 @@
 @endsection
 
 @section('content')
+<div class="create-notes-link" style="text-align: end">
+    <a style="margin-bottom: 15px" href="/notes/prepare">Create a new notes?</a>
+</div>
 <div class="table-notes">
     <table class="table">
         <thead>

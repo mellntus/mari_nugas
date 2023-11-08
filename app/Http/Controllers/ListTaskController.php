@@ -8,29 +8,31 @@ use App\Http\Requests\UpdateListTaskRequest;
 
 class ListTaskController extends Controller
 {
+    // ----------------------------------------
+    // Student Section
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index_student()
     {
         // Validation for student and teacher
 
         // Default student assignment page as dashboard
-        return view('content.student.assignment');
+        return view('content.student.assignment.assignment');
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function submit_assignment_student()
     {
-        //
+        return view("content.student.assignment.submit_assignment");
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreListTaskRequest $request)
+    public function store_assignment_student(StoreListTaskRequest $request)
     {
         //
     }
@@ -38,23 +40,23 @@ class ListTaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ListTask $listTask)
+    public function show_assignment_student(ListTask $listTask)
     {
-        //
+        return view("content.student.assignment.detail_assignment");
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ListTask $listTask)
+    public function edit_assignment_student(ListTask $listTask)
     {
-        //
+        return view("content.student.assignment.submit_assignment");
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateListTaskRequest $request, ListTask $listTask)
+    public function update_assignment_student(UpdateListTaskRequest $request, ListTask $listTask)
     {
         //
     }
@@ -62,8 +64,12 @@ class ListTaskController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ListTask $listTask)
+    public function destroy_assignment_student(ListTask $listTask)
     {
         //
     }
+
+
+    // ----------------------------------------
+    // Teacher Section
 }
