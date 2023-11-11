@@ -26,25 +26,25 @@ Route::get('/', [IndexController::class, 'index']);
 Route::get('/login', [AuthenticationController::class, 'index']);
 Route::get('/register', [AuthenticationController::class, 'show_register']);
 
-// Student Routes -Detailed
+// Student Routes ---------------------------------------------------------------------------
 // Profile Page
-Route::get('/student/profile', [ProfileController::class, 'index']);
+Route::get('/profile', [ProfileController::class, 'index']);
 // Main Profile - Edit
-Route::get('/student/profile/edit', [ProfileController::class, 'show']);
-Route::post('/student/profile/update', [ProfileController::class, 'update']);
+Route::get('/profile/edit', [ProfileController::class, 'show']);
+Route::post('/profile/update', [ProfileController::class, 'update']);
 // Main Profile - Change Password
-Route::get('/student/profile/change-password', [ProfileController::class, 'password']);
-Route::post('/student/profile/update-password', [ProfileController::class, 'update_password']);
+Route::get('/profile/change-password', [ProfileController::class, 'password']);
+Route::post('/profile/update-password', [ProfileController::class, 'update_password']);
 
 // Note Page
-Route::get('/student/notes', [NotesController::class, 'index']);
+Route::get('/notes', [NotesController::class, 'index']);
 // Note Page - Create
-Route::get('/student/notes/prepare', [NotesController::class, 'prepare']);
-Route::post('/student/notes/create', [NotesController::class, 'create']);
+Route::get('/notes/prepare', [NotesController::class, 'prepare']);
+Route::post('/notes/create', [NotesController::class, 'create']);
 // Note Page - Detail
-Route::get('/student/notes/id/detail', [NotesController::class, 'edit']);
-Route::post('/student/notes/id/update', [NotesController::class, 'update']);
-Route::post('/student/notes/id/destroy', [NotesController::class, 'destroy']);
+Route::get('/notes/id/detail', [NotesController::class, 'edit']);
+Route::post('/notes/id/update', [NotesController::class, 'update']);
+Route::post('/notes/id/destroy', [NotesController::class, 'destroy']);
 
 // Assignment
 Route::get('/student/assignment', [ListTaskController::class, 'index_student']);
@@ -55,5 +55,7 @@ Route::post('/student/assignment/id/create', [ListTaskController::class, 'submit
 Route::get('/student/study-groups', [ListGroupsController::class, 'index_student']);
 
 
-// Teacher Routes - Detailed
-Route::get('/assignment', [ListTaskController::class, 'index_student']);
+// Teacher Routes ---------------------------------------------------------------------------
+// Assignment
+
+// Study Groups

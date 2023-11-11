@@ -12,13 +12,13 @@
         </a>
       </li>
       <li>
-        <a href="/student/notes" class="nav-link text-white">
+        <a href="/notes" class="nav-link text-white">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
           Notes
         </a>
       </li>
       <li>
-        <a href="/student/profile" class="nav-link text-white">
+        <a href="/profile" class="nav-link text-white">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
           Profile
         </a>

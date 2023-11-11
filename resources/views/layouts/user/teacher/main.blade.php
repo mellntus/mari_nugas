@@ -31,7 +31,7 @@
 
     {{-- Sidebar --}}
     <section id="sidebar">
-        @include('partials.sidebar')
+        @include('partials.teacher.sidebar')
     </section>
 
     {{-- Content --}}
