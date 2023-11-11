@@ -72,4 +72,62 @@ class ListTaskController extends Controller
 
     // ----------------------------------------
     // Teacher Section
+    /**
+     * Display a listing of the resource.
+     */
+    public function index_teacher()
+    {
+        // Validation for student and teacher
+
+        // Default student assignment page as dashboard
+        return view('content.teacher.assignment.assignment');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function submit_assignment_teacher()
+    {
+        return view("content.teacher.assignment.submit_assignment");
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store_assignment_teacher(StoreListTaskRequest $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show_assignment_teacher(ListTask $listTask)
+    {
+        return view("content.student.assignment.detail_assignment");
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit_assignment_teacher(ListTask $listTask)
+    {
+        return view("content.student.assignment.submit_assignment");
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update_assignment_teacher(UpdateListTaskRequest $request, ListTask $listTask)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy_assignment_teacher(ListTask $listTask)
+    {
+        //
+    }
 }

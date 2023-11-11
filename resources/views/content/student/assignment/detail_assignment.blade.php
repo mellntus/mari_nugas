@@ -1,4 +1,4 @@
-@extends('layouts.user.main')
+@extends('layouts.user.student.main')
 
 @section('title')
     <h3>Student Assignment - Detail</h3>

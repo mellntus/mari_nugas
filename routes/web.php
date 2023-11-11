@@ -57,5 +57,7 @@ Route::get('/student/study-groups', [ListGroupsController::class, 'index_student
 
 // Teacher Routes ---------------------------------------------------------------------------
 // Assignment
+Route::get('/teacher/assignment', [ListTaskController::class, 'index_teacher']);
+
 
 // Study Groups
