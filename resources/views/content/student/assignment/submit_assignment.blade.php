@@ -12,7 +12,7 @@
     max-height: 600px;
     overflow-y: auto">
         <div class="submit-assignment-square" style="background: #F0F0F0; padding: 5%">
-            <form action="/student-assignment/id/create" method="post">
+            <form action="/student/assignment/id/create" method="post">
                 <input type="hidden" name="assignment-id">
                 <div class="row submit-assignment-data py-2">
                     <div class="col-3">

@@ -13,8 +13,8 @@
         margin-bottom: 15%">
         <div class="profile-square" style="background: #F0F0F0; padding: 5%">
             <div class="profile-edit-section" style="display: flex; justify-content: flex-end">
-                <a class="px-4" href="/profile/edit">Edit</a>
-                <a href="/profile/change-password">Change Password</a>
+                <a class="px-4" href="/student/profile/edit">Edit</a>
+                <a href="/student/profile/change-password">Change Password</a>
             </div>
             <div class="row profile-detail py-2">
                 <div class="col-3">

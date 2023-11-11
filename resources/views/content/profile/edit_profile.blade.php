@@ -12,7 +12,7 @@
         margin-top: 15%; 
         margin-bottom: 15%">
         <div class="profile-square" style="background: #F0F0F0; padding: 5%">
-            <form action="/profile/update" method="POST">
+            <form action="/student/profile/update" method="POST">
                 @csrf
                 <div class="row profile-detail py-2">
                     <div class="col-3">

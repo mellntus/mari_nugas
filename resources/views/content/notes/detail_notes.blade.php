@@ -11,7 +11,7 @@
     background: green;">
     
         <div class="notes-detail-square" style="background: #F0F0F0; padding: 5%">
-            <form action="/notes/id/update" method="POST">
+            <form action="/student/notes/id/update" method="POST">
                 @csrf
                 <div class="row notes-detail py-2">
                     <div class="col-3">

@@ -11,7 +11,7 @@
     background: green;">
     
         <div class="notes-create-square" style="background: #F0F0F0; padding: 5%">
-            <form action="/notes/create" method="POST">
+            <form action="/student/notes/create" method="POST">
                 @csrf
                 <div class="row notes-create py-2">
                     <div class="col-3">

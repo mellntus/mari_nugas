@@ -11,9 +11,9 @@ class ListGroupsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index_student()
     {
-        //
+        return view("content.student.study_group.study_groups");
     }
 
     /**

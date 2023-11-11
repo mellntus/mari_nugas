@@ -23,24 +23,8 @@
     {{-- jquert --}}
     <script src="/js/jquery-3.6.0.js"></script>
 
-    <style>
-        body{
-            position:fixed;
-            padding:0;
-            margin:0;
-
-            top:0;
-            left:0;
-
-            width: 100%;
-            height: 100%;
-            background:rgba(255,255,255,0.5);
-        }
-
-        .nav-item li a:hover{
-            background-color: blue;
-        }
-    </style>
+    {{-- CSS --}}
+    <link rel="stylesheet" href="/css/main.css?v=<?php echo time(); ?>">
 </head>
 <body class="overflow-y-hidden d-flex">
     {{-- CSRF HERE --}}
