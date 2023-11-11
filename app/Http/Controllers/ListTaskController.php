@@ -83,6 +83,14 @@ class ListTaskController extends Controller
         return view('content.teacher.assignment.assignment');
     }
 
+    public function prepare_assignment_teacher()
+    {
+        // Validation for student and teacher
+
+        // Default student assignment page as dashboard
+        return view('content.teacher.assignment.create_assignment');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -104,7 +112,17 @@ class ListTaskController extends Controller
      */
     public function show_assignment_teacher(ListTask $listTask)
     {
-        return view("content.student.assignment.detail_assignment");
+        return view("content.teacher.assignment.detail_assignment");
+    }
+
+    public function status_assignment_teacher(ListTask $listTask)
+    {
+        return view("content.teacher.assignment.status_assignment");
+    }
+
+    public function detail_status_assignment_teacher(ListTask $listTask)
+    {
+        return view("content.teacher.assignment.detail_status_assignment");
     }
 
     /**

@@ -58,6 +58,13 @@ Route::get('/student/study-groups', [ListGroupsController::class, 'index_student
 // Teacher Routes ---------------------------------------------------------------------------
 // Assignment
 Route::get('/teacher/assignment', [ListTaskController::class, 'index_teacher']);
+Route::get('/teacher/assignment/prepare', [ListTaskController::class, 'prepare_assignment_teacher']);
+Route::get('/teacher/assignment/id/detail', [ListTaskController::class, 'show_assignment_teacher']);
+Route::get('/teacher/assignment/id/status', [ListTaskController::class, 'status_assignment_teacher']);
+Route::get('/teacher/assignment/id/status/student', [ListTaskController::class, 'detail_status_assignment_teacher']);
+
+
+
 
 
 // Study Groups

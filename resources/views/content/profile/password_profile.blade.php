@@ -19,7 +19,7 @@
                         <h6>OLD PASSWORD</h6>
                     </div>
                     <div class="col-9">
-                        <input type="text" id="profile-old-password" style="width: -webkit-fill-available" required>
+                        <input type="password" id="profile-old-password" style="width: -webkit-fill-available" required>
                     </div>
                 </div>
                 <div class="row profile-detail py-2">
@@ -27,7 +27,7 @@
                         <h6>NEW PASSWORD</h6>
                     </div>
                     <div class="col-9">
-                        <input type="text" id="profile-new-password" style="width: -webkit-fill-available" required>
+                        <input type="password" id="profile-new-password" style="width: -webkit-fill-available" required>
                     </div>
                 </div>
                 <div class="row profile-detail py-2">
@@ -35,7 +35,7 @@
                         <h6>CONFIRM PASSWORD</h6>
                     </div>
                     <div class="col-9">
-                        <input type="text" id="profile-confirm-password" style="width: -webkit-fill-available" required>
+                        <input type="password" id="profile-confirm-password" style="width: -webkit-fill-available" required>
                     </div>
                 </div>
                 <div class="col" style="text-align-last: end;">

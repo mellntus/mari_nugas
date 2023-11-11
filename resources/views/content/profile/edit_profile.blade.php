@@ -9,7 +9,7 @@
         width: 100%;
         height: 100%;
         background: green;
-        margin-top: 15%; 
+        margin-top: 5%; 
         margin-bottom: 15%">
         <div class="profile-square" style="background: #F0F0F0; padding: 5%">
             <form action="/profile/update" method="POST">
@@ -35,7 +35,7 @@
                         <h4>ADDRESS</h4>
                     </div>
                     <div class="col-9">
-                        <input type="text" id="profile-address" style="width: -webkit-fill-available" required>
+                        <textarea type="text" id="profile-address" style="width: -webkit-fill-available; max-height: 200px"></textarea>
                     </div>
                 </div>
                 <div class="row profile-detail py-2">
@@ -43,7 +43,7 @@
                         <h4>ROLES</h4>
                     </div>
                     <div class="col-9">
-                        <input type="text" id="profile-roles" style="width: -webkit-fill-available" readonly>
+                        <h4>: TEACHER</h4>
                     </div>
                 </div>
                 <div class="row profile-detail py-2">
@@ -51,7 +51,7 @@
                         <h4>TAG</h4>
                     </div>
                     <div class="col-9">
-                        <input type="text" id="profile-tag" style="width: -webkit-fill-available" readonly>
+                        <h4>: EAH#123</h4>
                     </div>
                 </div>
                 <div class="col" style="text-align-last: end;">
