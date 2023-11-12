@@ -1,4 +1,4 @@
-@extends('layouts.user.student.main')
+@extends('layouts.user.teacher.main')
 
 @section('title')
     <h3>List Assignment - Detail</h3>
@@ -13,7 +13,6 @@
     overflow-y: auto">
         <div class="teacher-create-assignment-square" style="background: #F0F0F0; padding: 5%">
             <form action="/teacher/assignment/create" method="post">
-                <input type="hidden" name="assignment-id">
                 <div class="row teacher-create-assignment-data py-2">
                     <div class="col-3">
                         <h5>Title</h5>

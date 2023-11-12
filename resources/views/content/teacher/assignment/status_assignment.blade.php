@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="table-assignment">
+    <div class="table-status-assignment">
         <table class="table">
             <thead>
             <tr>

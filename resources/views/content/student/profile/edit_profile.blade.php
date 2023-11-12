@@ -35,7 +35,7 @@
                         <h4>ADDRESS</h4>
                     </div>
                     <div class="col-9">
-                        <textarea type="text" id="profile-address" style="width: -webkit-fill-available; max-height: 200px"></textarea>
+                        <textarea id="profile-address" style="width: -webkit-fill-available; max-height: 200px"></textarea>
                     </div>
                 </div>
                 <div class="row profile-detail py-2">

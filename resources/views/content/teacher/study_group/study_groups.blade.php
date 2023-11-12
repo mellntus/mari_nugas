@@ -1,10 +1,13 @@
-@extends('layouts.user.student.main')
+@extends('layouts.user.teacher.main')
 
 @section('title')
-    <h3>Student Study Groups</h3>
+    <h3>List Study Groups</h3>
 @endsection
 
 @section('content')
+    <div class="create-study-groups-link">
+        <a style="margin-bottom: 15px" href="/teacher/study-groups/prepare">Create a new study groups?</a>
+    </div>
     <div class="table-study-groups">
         <table class="table">
             <thead>
@@ -21,19 +24,19 @@
                 <th scope="row"></th>
                 <td>Lorem Ipsum</td>
                 <td>12</td>
-                <td><a href="/student/study-groups/id/left">Left</a><span>
+                <td><a href="/teacher/study-groups/id/detail">View</a><span>
             </tr>
             <tr>
                 <th scope="row"></th>
                 <td>Lorem Ipsum</td>
                 <td>12</td>
-                <td><a href="/student/study-groups/id/left">Left</a><span>
+                <td><a href="/teacher/study-groups/id/detail">View</a><span>
             </tr>
             <tr>
                 <th scope="row"></th>
                 <td>Lorem Ipsum</td>
                 <td>12</td>
-                <td><a href="/student/study-groups/id/left">Left</a><span>
+                <td><a href="/teacher/study-groups/id/detail">View</a><span>
             </tr>
             </tbody>
         </table>

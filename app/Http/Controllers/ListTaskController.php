@@ -48,7 +48,7 @@ class ListTaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit_assignment_student(ListTask $listTask)
+    public function prepare_assignment_student(ListTask $listTask)
     {
         return view("content.student.assignment.submit_assignment");
     }
