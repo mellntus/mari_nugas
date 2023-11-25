@@ -13,7 +13,25 @@ return new class extends Migration
     {
         Schema::create('list_tasks', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->unsignedBigInteger('task_id');
+            $table->foreign("task_id")
+                ->references('uid')
+                ->on('detail_tasks')
+                ->onDelete('cascade');
+            $table->foreign('user_id')
+                ->references('uid')
+                ->on('users')
+                ->onDelete('cascade');
+            $table->foreign('group_id')
+                ->references('uid')
+                ->on('detail_groups')
+                ->onDelete('cascade');
+            $table->binary('file_submitted')
+                ->nullable();
+            $table->timestamp('submitted_at')
+                ->nullable();
+            $table->timestamp('created_at')
+                ->useCurrent()->useCurrentOnUpdate();
         });
     }
 

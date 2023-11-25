@@ -13,7 +13,16 @@ return new class extends Migration
     {
         Schema::create('list_groups', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->unsignedBigInteger('grooup_id');
+            $table->foreign('group_id')
+                ->references('uid')
+                ->on('detail_groups')
+                ->onDelete('cascade');
+            $table->unsignedBigInteger('participant_id');
+            $table->foreign('participant_id')
+                ->references('uid')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 
