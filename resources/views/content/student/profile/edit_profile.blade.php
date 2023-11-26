@@ -19,7 +19,7 @@
                         <h4>EMAIL</h4>
                     </div>
                     <div class="col-9">
-                        <input type="text" id="profile-email" style="width: -webkit-fill-available" required>
+                        <input type="text" id="profile-email" name="profile-email" style="width: -webkit-fill-available" required>
                     </div>
                 </div>
                 <div class="row profile-detail py-2">
@@ -27,7 +27,7 @@
                         <h4>USERNAME</h4>
                     </div>
                     <div class="col-9">
-                        <input type="text" id="profile-username" style="width: -webkit-fill-available" required>
+                        <input type="text" id="profile-username" name="profile-username" style="width: -webkit-fill-available" required>
                     </div>
                 </div>
                 <div class="row profile-detail py-2">
@@ -35,7 +35,7 @@
                         <h4>ADDRESS</h4>
                     </div>
                     <div class="col-9">
-                        <textarea id="profile-address" style="width: -webkit-fill-available; max-height: 200px"></textarea>
+                        <textarea id="profile-address" name="profile-address" style="width: -webkit-fill-available; max-height: 200px"></textarea>
                     </div>
                 </div>
                 <div class="row profile-detail py-2">

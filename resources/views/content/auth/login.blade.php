@@ -13,7 +13,7 @@
                                 <label for="inputEmail" class="col col-form-label">Email</label>
                             </div>
                             <div class="col-sm-6 col-md-9">
-                                <input type="email" class="form-control" id="inputEmail">
+                                <input type="email" class="form-control" id="inputEmail" name="inputEmail">
                             </div>
                         </div>
                         <div class="mx-0 mb-2 row">
@@ -21,7 +21,7 @@
                                 <label for="inputPassword" class="col col-form-label">Password</label>
                             </div>
                             <div class="col-sm-6 col-md-9">
-                                <input type="password" class="form-control" id="inputPassword">
+                                <input type="password" class="form-control" id="inputPassword" name="inputPassword">
                             </div>
                         </div>
                         <div class="mx-0 my-4 row" style="align-items: center">
