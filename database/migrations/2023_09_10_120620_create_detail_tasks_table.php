@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('detail_tasks', function (Blueprint $table) {
             $table->id();
             $table->string('uid')->unique();
+            $table->string('owner_id');
             $table->string('group_id');
             $table->text('description');
             $table->timestamp('due_data')

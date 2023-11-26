@@ -22,6 +22,7 @@ return new class extends Migration
                 ->useCurrent()
                 ->useCurrentOnUpdate();
             $table->string('address');
+            $table->string('tag');
         });
     }
 
