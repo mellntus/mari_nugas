@@ -18,11 +18,7 @@ return new class extends Migration
             $table->string('description');
             $table->timestamp('created_at')
                 ->useCurrent()->useCurrentOnUpdate();
-            $table->unsignedBigInteger('owner_id');
-            $table->foreign('owner_id')
-                ->references('uid')
-                ->on('users')
-                ->onDelete('cascade');
+            $table->string('owner_id');
         });
     }
 

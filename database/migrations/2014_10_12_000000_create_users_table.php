@@ -14,11 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('uid')->unique();
-            $table->unsignedBigInteger('roles_id');
-            $table->foreign('roles_id')
-                ->references('id')
-                ->on('roles')
-                ->onDelete('cascade');
+            $table->string('roles_id');
             $table->string('username', 100);
             $table->string('password', 100);
             $table->string('email')->unique();

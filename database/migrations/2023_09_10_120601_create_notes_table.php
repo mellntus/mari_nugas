@@ -14,11 +14,7 @@ return new class extends Migration
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
             $table->string('uid')->unique();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')
-                ->references('uid')
-                ->on('users')
-                ->onDelete('cascade');
+            $table->string('user_id');
             $table->text('description');
             $table->timestamp('created_at')
                 ->useCurrent()->useCurrentOnUpdate();

@@ -14,11 +14,7 @@ return new class extends Migration
         Schema::create('detail_tasks', function (Blueprint $table) {
             $table->id();
             $table->string('uid')->unique();
-            $table->unsignedBigInteger('group_id');
-            $table->foreign('group_id')
-                ->references('uid')
-                ->on('detail_groups')
-                ->onDelete('cascade');
+            $table->string('group_id');
             $table->text('description');
             $table->timestamp('due_data')
                 ->nullable();
