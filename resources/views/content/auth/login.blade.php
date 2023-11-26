@@ -33,7 +33,23 @@
                             </div>
                         </div>
                     </form>
+
                 </div>
+            @if (session()->has('success'))
+                <div class="alert alert-success  fade show" role="alert" style="display: flex; justify-content: space-between">
+                    {{-- {{ session('success') }} --}}
+                    <p>Success to Validate</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            @if (session()->has('loginError'))
+                <div class="alert alert-danger fade show" role="alert" style="display: flex; justify-content: space-between">
+                    {{ session('loginError') }}
+                    <p>Failed to Validate</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             </div>
         </div>
     </div>

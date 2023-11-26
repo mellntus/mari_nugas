@@ -24,7 +24,9 @@ Route::get('/', [IndexController::class, 'index']);
 
 // Login Routes
 Route::get('/login', [AuthenticationController::class, 'index']);
+Route::post('/login', [AuthenticationController::class, 'authenticate']);
 Route::get('/register', [AuthenticationController::class, 'show_register']);
+Route::post('/register', [AuthenticationController::class, 'register']);
 
 // Student Routes ---------------------------------------------------------------------------
 // Profile Page

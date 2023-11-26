@@ -6,14 +6,14 @@
             <div class="form-section py-3">
                 <h3 class="mb-3" style="text-align-last: center"><strong>REGISTER</strong></h3>
                 <div class="form-input d-flex" style="justify-content: center">
-                    <form class="px-3" action="/login" method="POST" style="width: -webkit-fill-available">
+                    <form class="px-3" action="/register" method="POST" style="width: -webkit-fill-available">
                         @csrf
                         <div class="mx-0 mb-2 row">
                             <div class="col-6 col-md-3">
                                 <label for="inputEmail" class="col col-form-label">Email</label>
                             </div>
                             <div class="col-sm-6 col-md-9" style="align-self: center">
-                                <input type="email" class="form-control" id="inputEmail">
+                                <input required type="email" class="form-control" id="inputEmail" name="inputEmail">
                             </div>
                         </div>
                         <div class="mx-0 mb-2 row">
@@ -21,7 +21,7 @@
                                 <label for="inputUsername" class="col col-form-label">Username</label>
                             </div>
                             <div class="col-sm-6 col-md-9" style="align-self: center">
-                                <input type="text" class="form-control" id="inputUsername">
+                                <input required type="text" class="form-control" id="inputUsername" name="inputUsername">
                             </div>
                         </div>
                         <div class="mx-0 mb-2 row">
@@ -29,7 +29,7 @@
                                 <label for="inputPassword" class="col col-form-label">Password</label>
                             </div>
                             <div class="col-sm-6 col-md-9" style="align-self: center">
-                                <input type="password" class="form-control" id="inputPassword">
+                                <input required type="password" class="form-control" id="inputPassword" name="inputPassword">
                             </div>
                         </div>
                         <div class="mx-0 mb-2 row">
@@ -37,7 +37,7 @@
                                 <label for="inputConfirmPassword" class="col col-form-label">Confirm Password</label>
                             </div>
                             <div class="col-sm-6 col-md-9" style="align-self: center">
-                                <input type="password" class="form-control" id="inputConfirmPassword">
+                                <input required type="password" class="form-control" id="inputConfirmPassword" name="inputConfirmPassword">
                             </div>
                         </div>
                         <div class="mx-0 mb-2 row">
@@ -46,11 +46,9 @@
                             </div>
                             <div class="col-sm-6 col-md-9" style="align-self: center">
                                 <div class="input-group">
-                                    <select class="form-select" id="inputGroupSelect01">
-                                        <option selected>Choose...</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    <select class="form-select" id="inputRegisterAs" name="inputRoles">
+                                        <option value="1" selected>Student</option>
+                                        <option value="2">Teacher</option>
                                     </select>
                                 </div>
                             </div>
@@ -65,6 +63,21 @@
                         </div>
                     </form>
                 </div>
+                @if (session()->has('success'))
+                    <div class="alert alert-success  fade show" role="alert" style="display: flex; justify-content: space-between">
+                        {{-- {{ session('success') }} --}}
+                        <p>Success to Validate</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                @if (session()->has('loginError'))
+                    <div class="alert alert-danger fade show" role="alert" style="display: flex; justify-content: space-between">
+                        {{ session('loginError') }}
+                        <p>Failed to Validate</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

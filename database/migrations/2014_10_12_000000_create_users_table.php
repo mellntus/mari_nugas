@@ -18,9 +18,7 @@ return new class extends Migration
             $table->string('username', 100);
             $table->string('password', 100);
             $table->string('email')->unique();
-            $table->timestamp('created_at')
-                ->useCurrent()
-                ->useCurrentOnUpdate();
+            $table->timestamps();
             $table->string('address');
             $table->string('tag');
         });
