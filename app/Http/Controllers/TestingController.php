@@ -13,6 +13,7 @@ class TestingController extends Controller
     {
         // Get all user]
 
+        // User::with('roles')->where('uid', '3ce7cc43-24a9-4416-9411-f4a40849d90c')->get();
         $user = User::with('roles')->get();
 
         // ->find(intval($user->roles_id))
