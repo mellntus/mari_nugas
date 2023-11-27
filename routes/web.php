@@ -6,6 +6,7 @@ use App\Http\Controllers\ListGroupsController;
 use App\Http\Controllers\ListTaskController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NotesController;
+use App\Http\Controllers\TestingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 
 // Default Routes
 Route::get('/', [IndexController::class, 'index']);
+
+Route::get('/testing', [TestingController::class, 'index']);
 
 // Login Routes
 Route::get('/login', [AuthenticationController::class, 'index']);
