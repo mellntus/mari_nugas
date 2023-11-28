@@ -35,7 +35,7 @@ Route::post('/register', [AuthenticationController::class, 'register']);
 // Profile Page
 Route::get('/profile', [ProfileController::class, 'index']);
 // Main Profile - Edit
-Route::get('/profile/edit', [ProfileController::class, 'show']);
+Route::get('/profile/edit', [ProfileController::class, 'edit']);
 Route::post('/profile/update', [ProfileController::class, 'update']);
 // Main Profile - Change Password
 Route::get('/profile/change-password', [ProfileController::class, 'password']);
@@ -75,3 +75,10 @@ Route::post('/teacher/study-groups/create', [ListGroupsController::class, 'creat
 Route::get('/teacher/study-groups/id/detail', [ListGroupsController::class, 'detail_study_groups_teacher']);
 Route::get('/teacher/study-groups/id/edit', [ListGroupsController::class, 'edit_study_groups_teacher']);
 Route::post('/teacher/study-groups/id/invite', [ListGroupsController::class, 'invite_study_groups_teacher']);
+
+
+// Resource
+Route::resource('/profile', ProfileController::class);
+Route::resource('/notes', NotesController::class);
+Route::resource('/list-assignment', ListTaskController::class);
+Route::resource('/list-group', ListGroupsController::class);

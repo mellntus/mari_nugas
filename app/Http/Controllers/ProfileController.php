@@ -4,36 +4,82 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+
 class ProfileController extends Controller
 {
     // Default view
     public function index()
     {
-        return view('content.profile.profile');
+        $session = "";
+        $data = User::with('roles')->where('uid', $session->uid)->first();
+
+        return view('content.'.$roles.'.profile.profile', [
+           'email'=> $data->email,
+           'uid'=> $data->uid,
+           'username'=> $data->username,
+           'address'=> $data->address,
+           'roles'=> $data->roles->name,
+           'tag'=> $data->tag
+        ]);
     }
 
     public function show()
     {
+        
         return view('content.profile.edit_profile');
     }
 
-    public function edit()
+    public function edit($data): View
     {
-        //
+        //get post by ID
+        $roles = $data->roles->name;
+
+        //render view with post
+        return view('content.profile.'.$roles.'profile.edit_profile', [
+            'user' => $data
+        ]);
     }
 
-    public function update()
+    public function update(Request $request, $data): RedirectResponse
     {
-        return redirect()->intended('/profile');
+        // Get detail profile
+        $id = $data->uid;
+        $profile = User::findOrFail($id);
+
+        $profile->update([
+            'email' => $request->profile_email,
+            'username' => $request->profile_name,
+            'address' => $request->profile_address
+        ]);
+
+        return redirect()->route('content.'.$data.'.profile.profile');
     }
 
-    public function password()
+    public function password($data)
     {
-        return view('content.profile.password_profile');
+        $roles = $data->post->name;
+        return view('content.'.$roles.'profile.password_profile',[
+            'user' => $data
+        ]);
     }
 
-    public function update_password()
+    public function update_password(Request $request, $data): RedirectResponse
     {
-        return redirect()->intended('/profile');
+        // Validate current password
+
+        // Validate new password
+
+        // Get detail password
+        $id = $data->uid;
+        $profile = User::findOrFail($id);
+
+        // Update new password
+        $profile->update([
+            'password' => $request->profile_new_password
+        ]);
+
+        return redirect()->route('profile.index');
     }
 }

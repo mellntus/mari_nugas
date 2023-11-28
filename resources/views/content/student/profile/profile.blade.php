@@ -13,15 +13,15 @@
         margin-bottom: 15%">
         <div class="profile-square" style="background: #F0F0F0; padding: 5%">
             <div class="profile-edit-section" style="display: flex; justify-content: flex-end">
-                <a class="px-4" href="/profile/edit">Edit</a>
-                <a href="/profile/change-password">Change Password</a>
+                <a class="px-4" href="{{ route('profile.edit', $data) }}">Edit</a>
+                <a href="{{ route('profile.password', $data) }}">Change Password</a>
             </div>
             <div class="row profile-detail py-2">
                 <div class="col-3">
                     <h4>EMAIL</h4>
                 </div>
                 <div class="col-9">
-                    <h4>: erlangga@gmail.com</h4>
+                    <h4>: {{ $data->email }}</h4>
                 </div>
             </div>
             <div class="row profile-detail py-2">
@@ -29,7 +29,7 @@
                     <h4>USERNAME</h4>
                 </div>
                 <div class="col-9">
-                    <h4>: ERLANGGA ADIDARMA HARTONO</h4>
+                    <h4>: {{ $data->username }}</h4>
                 </div>
             </div>
             <div class="row profile-detail py-2">
@@ -37,7 +37,7 @@
                     <h4>ADDRESS</h4>
                 </div>
                 <div class="col-9">
-                    <h4>: JAKARTA BARAT, INDONESIA</h4>
+                    <h4>: {{ $data->address }}</h4>
                 </div>
             </div>
             <div class="row profile-detail py-2">
@@ -45,7 +45,7 @@
                     <h4>ROLES</h4>
                 </div>
                 <div class="col-9">
-                    <h4>: TEACHER</h4>
+                    <h4>: {{ $data->roles->name }}</h4>
                 </div>
             </div>
             <div class="row profile-detail py-2">
@@ -53,7 +53,7 @@
                     <h4>TAG</h4>
                 </div>
                 <div class="col-9">
-                    <h4>: EAH#123</h4>
+                    <h4>: {{ $data->tag }}</h4>
                 </div>
             </div>
         </div>

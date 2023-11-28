@@ -12,14 +12,15 @@
         margin-top: 15%; 
         margin-bottom: 15%">
         <div class="profile-square" style="background: #F0F0F0; padding: 5%">
-            <form action="/profile/update-password" method="POST">
+            <form action="{{ route('profile.update_password', $user) }}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="row profile-detail py-2">
                     <div class="col-3">
                         <h6>OLD PASSWORD</h6>
                     </div>
                     <div class="col-9">
-                        <input type="password" id="profile-old-password" style="width: -webkit-fill-available" required>
+                        <input type="password" name="profile_old_password" id="profile_old_password" style="width: -webkit-fill-available" required>
                     </div>
                 </div>
                 <div class="row profile-detail py-2">
@@ -27,7 +28,7 @@
                         <h6>NEW PASSWORD</h6>
                     </div>
                     <div class="col-9">
-                        <input type="password" id="profile-new-password" style="width: -webkit-fill-available" required>
+                        <input type="password" name="profile_new_password" id="profile_new_password" style="width: -webkit-fill-available" required>
                     </div>
                 </div>
                 <div class="row profile-detail py-2">
@@ -35,7 +36,7 @@
                         <h6>CONFIRM PASSWORD</h6>
                     </div>
                     <div class="col-9">
-                        <input type="password" id="profile-confirm-password" style="width: -webkit-fill-available" required>
+                        <input type="password" name="profile_confirm_password" id="profile_confirm_password" style="width: -webkit-fill-available" required>
                     </div>
                 </div>
                 <div class="col" style="text-align-last: end;">
