@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -15,19 +16,19 @@ class ProfileController extends Controller
         $session = "";
         $data = User::with('roles')->where('uid', $session->uid)->first();
 
-        return view('content.'.$roles.'.profile.profile', [
-           'email'=> $data->email,
-           'uid'=> $data->uid,
-           'username'=> $data->username,
-           'address'=> $data->address,
-           'roles'=> $data->roles->name,
-           'tag'=> $data->tag
+        return view('content.' . $roles . '.profile.profile', [
+            'email' => $data->email,
+            'uid' => $data->uid,
+            'username' => $data->username,
+            'address' => $data->address,
+            'roles' => $data->roles->name,
+            'tag' => $data->tag
         ]);
     }
 
     public function show()
     {
-        
+
         return view('content.profile.edit_profile');
     }
 
@@ -37,7 +38,7 @@ class ProfileController extends Controller
         $roles = $data->roles->name;
 
         //render view with post
-        return view('content.profile.'.$roles.'profile.edit_profile', [
+        return view('content.profile.' . $roles . 'profile.edit_profile', [
             'user' => $data
         ]);
     }
@@ -54,13 +55,13 @@ class ProfileController extends Controller
             'address' => $request->profile_address
         ]);
 
-        return redirect()->route('content.'.$data.'.profile.profile');
+        return redirect()->route('content.' . $data . '.profile.profile');
     }
 
     public function password($data)
     {
         $roles = $data->post->name;
-        return view('content.'.$roles.'profile.password_profile',[
+        return view('content.' . $roles . 'profile.password_profile', [
             'user' => $data
         ]);
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Utility\Utility;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,36 +24,52 @@ class AuthenticationController extends Controller
         return view('content.auth.register');
     }
 
-    public function authenticate(Request $request)
+    public function authenticate(Request $request): RedirectResponse
     {
-        $user = User::where([
-            'email' => $request->email,
-            'password' => $request->password
-        ])->first();
 
-        if ($user) {
-            Auth::login($user);
-            $request->session()->regenerate();
-
-            return redirect()->intended('/profile');
+        // Get detail user
+        $is_fail = False;
+        $data = User::with('roles')->where(['email' => $request->inputEmail])->first();
+        if (
+            $data == False || $data->email != $request->inputEmail
+            || $data->password != $request->inputPassword
+        ) {
+            $is_fail = True;
         }
 
-        return back()->with('loginError', 'Login Failed');
+        // Check status validation
+        if ($is_fail == True) {
+            return redirect("/login")->with(
+                'loginError',
+                'Email or password is wrong'
+            );
+        }
+
+        // Store data to session
+        if (Auth::attempt($data)) {
+            $request->session()->regenerate();
+            $request->session()->put($data);
+            return redirect()->intended('/' . $data->roles->name . '/assignment');
+        };
+
+        return redirect("/login")->with('Login details are not valid');
     }
 
     public function register(Request $request)
     {
-        // Validate user input
-        // $this->validate($request, [
-        //     'inputEmail' => 'required|email',
-        //     'inputUsername' => 'required|without_spaces',
-        //     'inputPassword' => 'required',
-        //     'inputConfirmPassword' => $request->inputPassword == $request->inputConfirmPassword,
-        //     'inputRoles' => 'required'
-        // ]);
+
+        // Check current login user
+        if ($request->inputPassword != $request->inputConfirmPassword) {
+            return redirect("/register")->with('loginError', 'Password doesnt match');
+        }
 
         $utility = new Utility();
         $tag = $utility->get_random_string();
+
+        $is_exist = User::where('email', $request->inputEmail);
+        if ($is_exist) {
+            return redirect("/login")->with('loginError', 'Email has been used');
+        }
 
         // Create user
         User::create([
@@ -65,7 +82,7 @@ class AuthenticationController extends Controller
             'tag' => $tag
         ]);
 
-        return redirect('/login')->with(['success' => 'Data Berhasil Disimpan!']);
+        return redirect('/login')->with('success', 'Account has been created!');
     }
 
     public function logout(Request $request)
