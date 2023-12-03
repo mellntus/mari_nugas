@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailTask;
 use App\Models\User;
 use App\Models\Roles;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Response;
+
 
 class TestingController extends Controller
 {
@@ -20,5 +23,33 @@ class TestingController extends Controller
         return view('content.teacher.sample', [
             'list_user' => $user
         ]);
+    }
+
+    public function show_file($id)
+    {
+        $pdf = DetailTask::find($id);
+
+        $response = Response::make($pdf->image, 200);
+        $response->header('Content-Type', 'application/pdf');
+        $response->header('Content-Disposition', 'inline; filename="' . $pdf->image . '"');
+
+        return $response;
+    }
+
+    public function download($id)
+    {
+        $pdf = DetailTask::find($id);
+
+        $response = Response::make($pdf->image, 200);
+        $response->header('Content-Type', 'application/pdf');
+        $response->header('Content-Disposition', 'attachment; filename="' . $pdf->image . '"');
+
+        // How to call?
+        // Blade
+        // <a href={{ url("/show_file/".$blog->id) }}>View {{ $blog->image }}</a>
+        // Routes
+        // Route::get('/show_file/{id}', [BlogController::class, "show_file"]);
+
+        return $response;
     }
 }
