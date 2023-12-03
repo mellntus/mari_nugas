@@ -16,7 +16,7 @@ class ProfileController extends Controller
         $session = "";
         $data = User::with('roles')->where('uid', $session->uid)->first();
 
-        return view('content.' . $roles . '.profile.profile', [
+        return view('content.' . $data->roles->name . '.profile.profile', [
             'email' => $data->email,
             'uid' => $data->uid,
             'username' => $data->username,
