@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
@@ -14,6 +13,7 @@ class ProfileController extends Controller
     // Default view
     public function index()
     {
+        // Get from current session
         $data = Auth::user();
 
         return view('content.' . $data->roles->name . '.profile.profile', [
@@ -32,16 +32,22 @@ class ProfileController extends Controller
         return view('content.profile.edit_profile');
     }
 
-    public function edit($data): View
+    public function edit(): View
     {
+        // Get from current session
+        $data = Auth::user();
+
         // Edit current user profile
-        return view('content.profile.' . $data->roles->name . 'profile.edit_profile', [
+        return view('content.' . $data->roles->name . '.profile.edit_profile', [
             'user' => $data
         ]);
     }
 
-    public function update(Request $request, $data): RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
+        // Get from current session
+        $data = Auth::user();
+
         // Get detail profile
         $id = $data->uid;
         $profile = User::where('uid', $id);
@@ -56,19 +62,25 @@ class ProfileController extends Controller
             ]);
         }
 
-        return redirect()->route('content.' . $data->roles->name . '.profile.profile');
+        return redirect()->route('content.' . $request->data->roles->name . '.profile.profile');
     }
 
-    public function password($data)
+    public function password()
     {
+        // Get from current session
+        $data = Auth::user();
+
         $roles = $data->roles->name;
         return view('content.' . $roles . 'profile.password_profile', [
             'user' => $data
         ]);
     }
 
-    public function update_password(Request $request, $data): RedirectResponse
+    public function update_password(Request $request): RedirectResponse
     {
+        // Get from current session
+        $data = Auth::user();
+
         // Validate current password
         if ($request->profile_old_password != $request->profile_new_password) {
             return back()->withErrors("Can't use the same password");

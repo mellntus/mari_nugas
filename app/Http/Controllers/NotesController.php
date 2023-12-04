@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Notes;
 use App\Http\Requests\StoreNotesRequest;
 use App\Http\Requests\UpdateNotesRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NotesController extends Controller
 {
@@ -13,7 +15,8 @@ class NotesController extends Controller
      */
     public function index()
     {
-        return view('content.notes.notes');
+        $data = Auth::user();
+        return view('content.' . $data->roles->name . 'notes.notes');
     }
 
     /**
