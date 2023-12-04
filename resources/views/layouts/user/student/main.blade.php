@@ -20,8 +20,11 @@
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
 
-    {{-- jquert --}}
+    {{-- Jquery --}}
     <script src="/js/jquery-3.6.0.js"></script>
+
+    {{-- Toast --}}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     {{-- CSS --}}
     <link rel="stylesheet" href="/css/main.css?v=<?php echo time(); ?>">

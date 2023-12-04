@@ -16,6 +16,9 @@
     {{-- Jquery --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
+    {{-- Toast --}}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
     {{-- CSS --}}
     <link rel="stylesheet" href="/css/app.css?v=<?php echo time(); ?>">
 

@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Notes;
-use App\Http\Requests\StoreNotesRequest;
-use App\Http\Requests\UpdateNotesRequest;
+use App\Utility\Utility;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,60 +14,101 @@ class NotesController extends Controller
      */
     public function index()
     {
+        // Get from current session
         $data = Auth::user();
-        return view('content.' . $data->roles->name . 'notes.notes');
+
+        // Get all notes data
+        $notes = Notes::where('uid', $data->uid);
+
+        return view('content.' . $data->roles->name . '.notes.notes', [
+            'notes' => $notes
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view("content.notes.notes");
+        // Get from current session
+        $data = Auth::user();
+
+        // Validate current input data
+        // $this->validate($request, [
+        //     'image'     => 'required|mimes:pdf|max:10000',
+        //     'title'     => 'required',
+        //     'content'   => 'required'
+        // ]);
+
+        $utility = new Utility();
+        $response = Notes::create([
+            'uid' => $utility->get_uuid(),
+            'user_id' => $data->uid,
+            'title' => $request->create_notes_title,
+            'description' => $request->create_notes_content
+        ]);
+
+        // Send response
+
+        return redirect("content." . $data->roles->name . ".notes.notes");
     }
 
     public function prepare()
     {
-        return view("content.notes.create_notes");
+        // Get from current session
+        $data = Auth::user();
+
+        return view("content." . $data->roles->name . ".notes.create_notes");
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreNotesRequest $request)
+    public function store(Request $request)
     {
-        //
+        // Get from current session
+        $data = Auth::user();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Notes $notes)
+    public function show()
     {
-        //
+        // Get from current session
+        $data = Auth::user();
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Notes $notes)
+    public function edit($id)
     {
-        return view("content.notes.detail_notes");
+        // Get from current session
+        $data = Auth::user();
+
+        return view("content." . $data->roles->name . ".notes.detail_notes");
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateNotesRequest $request, Notes $notes)
+    public function update(Request $request, $id)
     {
-        return redirect("/notes");
+        // Get from current session
+        $data = Auth::user();
+
+        return view("content." . $data->roles->name . ".notes.notes");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Notes $notes)
+    public function destroy($id)
     {
-        return redirect("/notes");
+        // Get from current session
+        $data = Auth::user();
+
+        return view("content." . $data->roles->name . ".notes.notes");
     }
 }
