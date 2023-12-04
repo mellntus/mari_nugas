@@ -25,11 +25,28 @@ Route::get('/', [IndexController::class, 'index']);
 
 Route::get('/testing', [TestingController::class, 'index']);
 
-// Login Routes
-Route::get('/login', [AuthenticationController::class, 'index']);
-Route::post('/login', [AuthenticationController::class, 'authenticate']);
-Route::get('/register', [AuthenticationController::class, 'show_register']);
-Route::post('/register', [AuthenticationController::class, 'register']);
+// Authentication Routes
+Route::group(['middleware' => ['guest']](function () {
+    // Login
+    Route::get('/login', [AuthenticationController::class, 'index'])->name('login');
+    Route::post('/login', [AuthenticationController::class, 'authenticate']);
+
+    // Register
+    Route::get('/register', [AuthenticationController::class, 'show_register']);
+    Route::post('/register', [AuthenticationController::class, 'register']);
+}));
+
+// Dashboard Routes
+Route::group(['middleware' => ['auth']](function () {
+    // Profile
+    Route::get('/profile', [ProfileController::class, 'index']);
+    // Main Profile - Edit
+    Route::get('/profile/edit', [ProfileController::class, 'edit']);
+    Route::post('/profile/update', [ProfileController::class, 'update']);
+    // Main Profile - Change Password
+    Route::get('/profile/change-password', [ProfileController::class, 'password']);
+    Route::post('/profile/update-password', [ProfileController::class, 'update_password']);
+}));
 
 // Student Routes ---------------------------------------------------------------------------
 // Profile Page

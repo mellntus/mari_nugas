@@ -28,47 +28,46 @@ class AuthenticationController extends Controller
     {
 
         // Get detail user
-        $is_fail = False;
-        $data = User::with('roles')->where(['email' => $request->inputEmail])->first();
-        if (
-            $data == False || $data->email != $request->inputEmail
-            || $data->password != $request->inputPassword
-        ) {
-            $is_fail = True;
-        }
+        $data = User::with('roles')->where('email', $request->inputEmail);
 
-        // Check status validation
-        if ($is_fail == True) {
-            return redirect("/login")->with(
+        // Check data exists or not
+        if (!$data->exist()) {
+            return back()->with(
                 'loginError',
                 'Email or password is wrong'
             );
         }
 
-        // Store data to session
-        if (Auth::attempt($data)) {
-            $request->session()->regenerate();
-            $request->session()->put($data);
-            return redirect()->intended('/' . $data->roles->name . '/assignment');
-        };
+        // Get only one data
+        $data = $data->first();
 
-        return redirect("/login")->with('Login details are not valid');
+        // Validate password
+        if ($data->password != $request->inputPassword) {
+            return back()->with(
+                'loginError',
+                'Email or password is wrong'
+            );
+        }
+
+        Auth::login($data);
+        $request->session()->regenerate();
+
+        return redirect()->intended('/' . $data->roles->name . '/assignment');
     }
 
     public function register(Request $request)
     {
-
         // Check current login user
         if ($request->inputPassword != $request->inputConfirmPassword) {
-            return redirect("/register")->with('loginError', 'Password doesnt match');
+            return back()->with('loginError', 'Password doesnt match');
         }
 
         $utility = new Utility();
         $tag = $utility->get_random_string();
 
-        $is_exist = User::where('email', $request->inputEmail);
+        $is_exist = User::where('email', $request->inputEmail)->exists();
         if ($is_exist) {
-            return redirect("/login")->with('loginError', 'Email has been used');
+            return back()->with('loginError', 'Email has been used');
         }
 
         // Create user
@@ -85,7 +84,7 @@ class AuthenticationController extends Controller
         return redirect('/login')->with('success', 'Account has been created!');
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request): RedirectResponse
     {
         Auth::logout();
 
