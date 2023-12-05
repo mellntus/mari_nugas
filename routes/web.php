@@ -42,10 +42,10 @@ Route::group(['middleware' => ['auth']], (function () {
     Route::get('/profile', [ProfileController::class, 'index']);
     // Main Profile - Edit
     Route::get('/profile/edit', [ProfileController::class, 'edit']);
-    Route::post('/profile/update', [ProfileController::class, 'update'])->middleware('preventBack');
+    Route::post('/profile/update', [ProfileController::class, 'update']);
     // Main Profile - Change Password
     Route::get('/profile/change-password', [ProfileController::class, 'password']);
-    Route::put('/profile/update-password', [ProfileController::class, 'update_password'])->middleware('preventBack');
+    Route::put('/profile/update-password', [ProfileController::class, 'update_password']);
 
     // Note Page
     Route::get('/notes', [NotesController::class, 'index']);

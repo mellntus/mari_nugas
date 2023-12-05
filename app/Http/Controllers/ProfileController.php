@@ -82,13 +82,13 @@ class ProfileController extends Controller
         $data = Auth::user();
 
         // Validate current password
-        if ($request->profile_old_password != $request->profile_new_password) {
-            return back()->withErrors("Can't use the same password");
+        if ($request->profile_old_password == $request->profile_new_password) {
+            return back()->with("error", "Can't use the same password");
         }
 
         // Validate new password
         if ($request->profile_new_password != $request->profile_confirm_password) {
-            return back()->withErrors("Password doesn't match");
+            return back()->with("error", "Password doesn't match");
         }
 
         // Get detail profile
