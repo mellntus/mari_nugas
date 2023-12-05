@@ -18,7 +18,7 @@ class NotesController extends Controller
         $data = Auth::user();
 
         // Get all notes data
-        $notes = Notes::where('uid', $data->uid);
+        $notes = Notes::where('user_id', $data->uid);
 
         return view('content.' . $data->roles->name . '.notes.notes', [
             'notes' => $notes

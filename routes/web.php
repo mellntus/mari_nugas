@@ -38,6 +38,9 @@ Route::group(['middleware' => ['guest']], (function () {
 
 // Dashboard Routes
 Route::group(['middleware' => ['auth']], (function () {
+    // Logout
+    Route::post('/logout', [AuthenticationController::class, 'logout']);
+
     // Profile Page
     Route::get('/profile', [ProfileController::class, 'index']);
     // Main Profile - Edit

@@ -36,9 +36,11 @@
 
                     </tr>
                 @empty
+                <tr>
                     <div class="alert alert-danger">
-                        Data Blog belum Tersedia.
+                        Data notes belum Tersedia.
                     </div>
+                </tr>
                 @endforelse
             </tbody>
         </table>

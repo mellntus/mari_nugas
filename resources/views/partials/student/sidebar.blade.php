@@ -33,13 +33,15 @@
     <hr>
     <div class="logout">
         {{-- CSRF Here --}}
-        <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item">
-              <a href="/logout" class="nav-link active" aria-current="page">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                Logout
-              </a>
-            </li>
-        </ul>
+        <form action="/logout" method="POST">
+          @csrf
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                  <button class="btn btn-danger" type="submit" style="width: -webkit-fill-available">
+                    Logout
+                  </button>
+                </li>
+            </ul>
+        </form>
     </div>
 </div>
