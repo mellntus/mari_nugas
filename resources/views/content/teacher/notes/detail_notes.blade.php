@@ -11,14 +11,15 @@
     background: green;">
     
         <div class="notes-detail-square" style="background: #F0F0F0; padding: 5%">
-            <form action="/notes/id/update" method="POST">
+            <form action="{{ url('/notes/'. $note->uid .'/update') }}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="row notes-detail py-2">
                     <div class="col-3">
                         <h4>TITLE</h4>
                     </div>
                     <div class="col-9">
-                        <input type="text" id="edit-notes-title" name="edit-notes-title" style="width: -webkit-fill-available" required>
+                        <input type="text" id="edit_notes_title" name="edit_notes_title" style="width: -webkit-fill-available" value="{{ $note->title }}" required>
                     </div>
                 </div>
                 <div class="row notes-detail py-2">
@@ -26,8 +27,8 @@
                         <h4>CONTENT</h4>
                     </div>
                     <div class="col-9">
-                        <input id="edit-notes-content" value="Lorem Ipsum Dolor" style="width: -webkit-fill-available" type="hidden" name="edit-notes-content" required>
-                        <trix-editor style="max-height: 300px; overflow-y: auto" input="edit-notes-content"></trix-editor>
+                        <input id="edit_notes_content" value="{{ $note->description }}" style="width: -webkit-fill-available" type="hidden" name="edit_notes_content" required>
+                        <trix-editor style="max-height: 300px; overflow-y: auto" input="edit_notes_content"></trix-editor>
                     </div>
                 </div>
                 <div class="col" style="text-align-last: end;">

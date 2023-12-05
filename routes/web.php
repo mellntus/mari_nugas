@@ -39,13 +39,14 @@ Route::group(['middleware' => ['guest']], (function () {
 // Dashboard Routes
 Route::group(['middleware' => ['auth']], (function () {
     // Logout
+    Route::get('/logout', [AuthenticationController::class, 'prepare_logout']);
     Route::post('/logout', [AuthenticationController::class, 'logout']);
 
     // Profile Page
     Route::get('/profile', [ProfileController::class, 'index']);
     // Main Profile - Edit
     Route::get('/profile/edit', [ProfileController::class, 'edit']);
-    Route::post('/profile/update', [ProfileController::class, 'update']);
+    Route::put('/profile/update', [ProfileController::class, 'update']);
     // Main Profile - Change Password
     Route::get('/profile/change-password', [ProfileController::class, 'password']);
     Route::put('/profile/update-password', [ProfileController::class, 'update_password']);
@@ -56,9 +57,9 @@ Route::group(['middleware' => ['auth']], (function () {
     Route::get('/notes/prepare', [NotesController::class, 'prepare']);
     Route::post('/notes/create', [NotesController::class, 'create']);
     // Note Page - Detail
-    Route::get('/notes/id/detail', [NotesController::class, 'edit']);
-    Route::post('/notes/id/update', [NotesController::class, 'update']);
-    Route::post('/notes/id/destroy', [NotesController::class, 'destroy']);
+    Route::get('/notes/{id}/detail', [NotesController::class, 'edit']);
+    Route::put('/notes/{id}/update', [NotesController::class, 'update']);
+    Route::put('/notes/{id}/destroy', [NotesController::class, 'destroy']);
 }));
 
 // Student Routes ---------------------------------------------------------------------------

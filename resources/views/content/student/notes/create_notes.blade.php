@@ -26,7 +26,7 @@
                         <h4>CONTENT</h4>
                     </div>
                     <div class="col-9">
-                        <input id="create_notes_content" value="Lorem Ipsum Dolor" style="width: -webkit-fill-available" type="hidden" name="create_notes_content" required>
+                        <input id="create_notes_content" placeholder="Lorem Ipsum" style="width: -webkit-fill-available" type="hidden" name="create_notes_content" required>
                         <trix-editor style="max-height: 300px; overflow-y: auto" input="create_notes_content"></trix-editor>
                     </div>
                 </div>

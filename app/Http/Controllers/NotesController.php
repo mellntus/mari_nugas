@@ -18,7 +18,7 @@ class NotesController extends Controller
         $data = Auth::user();
 
         // Get all notes data
-        $notes = Notes::where('user_id', $data->uid);
+        $notes = Notes::where('user_id', $data->uid)->get();
 
         return view('content.' . $data->roles->name . '.notes.notes', [
             'notes' => $notes
@@ -41,7 +41,9 @@ class NotesController extends Controller
         // ]);
 
         $utility = new Utility();
-        $response = Notes::create([
+
+        // Create notes
+        Notes::create([
             'uid' => $utility->get_uuid(),
             'user_id' => $data->uid,
             'title' => $request->create_notes_title,
@@ -50,7 +52,7 @@ class NotesController extends Controller
 
         // Send response
 
-        return redirect("content." . $data->roles->name . ".notes.notes");
+        return redirect()->route('notes.index');
     }
 
     public function prepare()
@@ -87,7 +89,12 @@ class NotesController extends Controller
         // Get from current session
         $data = Auth::user();
 
-        return view("content." . $data->roles->name . ".notes.detail_notes");
+        // Get detail notes
+        $notes = Notes::where('uid', $id)->first();
+
+        return view("content." . $data->roles->name . ".notes.detail_notes", [
+            'note' => $notes
+        ]);
     }
 
     /**
@@ -98,7 +105,19 @@ class NotesController extends Controller
         // Get from current session
         $data = Auth::user();
 
-        return view("content." . $data->roles->name . ".notes.notes");
+        // Get detail notes
+        $notes = Notes::where('uid', $id);
+
+        // Make sure data is exists
+        if ($notes->exists()) {
+            $notes = $notes->first();
+            $notes->update([
+                'title' => $request->edit_notes_title,
+                'description' => $request->edit_notes_content
+            ]);
+        }
+
+        return redirect()->route('notes.index');
     }
 
     /**

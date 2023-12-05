@@ -23,15 +23,18 @@
                 {{-- Foreach Here --}}
                 @forelse ($notes as $note)
                     <tr>
+                        <td></td>
                         <td>{{ $note->title }}</td>
                         <td>{{ $note->description }}</td>
                         <td>{{ $note->created_at }}</td>                        
                         <td>
-                            <a href={{ url('/notes/'.$note->uid.'/detail') }}>
-                                <button class="btn btn-success" type="submit">View</button></a>
-                            <form action={{ url('/notes/'.$note->uid.'/destroy') }} method="POST">
-                                <button class="btn btn-danger" type="submit">Delete</button></a>
-                            </form>    
+                            <div class="d-flex">
+                                <a href={{ url('/notes/'.$note->uid.'/detail') }}>
+                                    <button class="btn btn-success" type="submit">View</button></a>
+                                <form action={{ url('/notes/'.$note->uid.'/destroy') }} method="POST">
+                                    <button class="btn btn-danger" type="submit">Delete</button></a>
+                                </form>    
+                            </div>
                         </td>                        
 
                     </tr>
