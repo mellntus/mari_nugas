@@ -57,12 +57,12 @@ class ProfileController extends Controller
             $profile = $profile->first();
             $profile->update([
                 'email' => $request->profile_email,
-                'username' => $request->profile_name,
+                'username' => $request->profile_username,
                 'address' => $request->profile_address
             ]);
         }
 
-        return redirect()->route('content.' . $request->data->roles->name . '.profile.profile');
+        return redirect()->route('profile.index');
     }
 
     public function password()
@@ -71,7 +71,7 @@ class ProfileController extends Controller
         $data = Auth::user();
 
         $roles = $data->roles->name;
-        return view('content.' . $roles . 'profile.password_profile', [
+        return view('content.' . $roles . '.profile.password_profile', [
             'user' => $data
         ]);
     }

@@ -12,7 +12,7 @@
         margin-top: 5%; 
         margin-bottom: 15%">
         <div class="profile-square" style="background: #F0F0F0; padding: 5%">
-            <form action="{{ {{ url('/profile/update') }} }}" method="POST">
+            <form action="{{ url('/profile/update') }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="row profile-detail py-2">
@@ -36,7 +36,7 @@
                         <h4>ADDRESS</h4>
                     </div>
                     <div class="col-9">
-                        <textarea id="profile_address" name="profile_address" style="width: -webkit-fill-available; max-height: 200px" value="{{ $user->address }}"></textarea>
+                        <textarea id="profile_address" name="profile_address" style="width: -webkit-fill-available; max-height: 200px">{{ $user->address }}</textarea>
                     </div>
                 </div>
                 <div class="row profile-detail py-2">

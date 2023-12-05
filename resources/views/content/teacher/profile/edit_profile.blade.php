@@ -36,7 +36,7 @@
                         <h4>ADDRESS</h4>
                     </div>
                     <div class="col-9">
-                        <textarea id="profile_address" name="profile_address" style="width: -webkit-fill-available; max-height: 200px" value="{{ $user->address }}"></textarea>
+                        <textarea id="profile_address" name="profile_address" style="width: -webkit-fill-available; max-height: 200px">{{ $user->address }}</textarea>
                     </div>
                 </div>
                 <div class="row profile-detail py-2">

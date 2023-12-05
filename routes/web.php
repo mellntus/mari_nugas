@@ -26,7 +26,7 @@ Route::get('/', [IndexController::class, 'index']);
 Route::get('/testing', [TestingController::class, 'index']);
 
 // Authentication Routes
-Route::group(['middleware' => ['guest']](function () {
+Route::group(['middleware' => ['guest']], (function () {
     // Login
     Route::get('/login', [AuthenticationController::class, 'index'])->name('login');
     Route::post('/login', [AuthenticationController::class, 'authenticate']);
@@ -37,15 +37,15 @@ Route::group(['middleware' => ['guest']](function () {
 }));
 
 // Dashboard Routes
-Route::group(['middleware' => ['auth']](function () {
+Route::group(['middleware' => ['auth']], (function () {
     // Profile Page
     Route::get('/profile', [ProfileController::class, 'index']);
     // Main Profile - Edit
     Route::get('/profile/edit', [ProfileController::class, 'edit']);
-    Route::post('/profile/update', [ProfileController::class, 'update']);
+    Route::post('/profile/update', [ProfileController::class, 'update'])->middleware('preventBack');
     // Main Profile - Change Password
     Route::get('/profile/change-password', [ProfileController::class, 'password']);
-    Route::post('/profile/update-password', [ProfileController::class, 'update_password']);
+    Route::put('/profile/update-password', [ProfileController::class, 'update_password'])->middleware('preventBack');
 
     // Note Page
     Route::get('/notes', [NotesController::class, 'index']);
@@ -59,7 +59,7 @@ Route::group(['middleware' => ['auth']](function () {
 }));
 
 // Student Routes ---------------------------------------------------------------------------
-Route::group(['middleware' => ['auth', 'auth.student']](function () {
+Route::group(['middleware' => ['auth']], (function () {
     // Assignment
     Route::get('/student/assignment', [ListTaskController::class, 'index_student']);
     Route::get('/student/assignment/id/detail', [ListTaskController::class, 'show_assignment_student']);
@@ -73,7 +73,7 @@ Route::group(['middleware' => ['auth', 'auth.student']](function () {
 
 // Teacher Routes ---------------------------------------------------------------------------
 // Student Routes ---------------------------------------------------------------------------
-Route::group(['middleware' => ['auth', 'auth.teacher']](function () {
+Route::group(['middleware' => ['auth', 'auth.teacher']], (function () {
     // Assignment
     Route::get('/teacher/assignment', [ListTaskController::class, 'index_teacher']);
     Route::get('/teacher/assignment/prepare', [ListTaskController::class, 'prepare_assignment_teacher']);
@@ -91,7 +91,7 @@ Route::group(['middleware' => ['auth', 'auth.teacher']](function () {
 }));
 
 // Resource
-Route::resource('/profile', ProfileController::class);
-Route::resource('/notes', NotesController::class);
-Route::resource('/list-assignment', ListTaskController::class);
-Route::resource('/list-group', ListGroupsController::class);
+Route::resource('profile', ProfileController::class);
+Route::resource('notes', NotesController::class);
+Route::resource('list-assignment', ListTaskController::class);
+Route::resource('list-group', ListGroupsController::class);

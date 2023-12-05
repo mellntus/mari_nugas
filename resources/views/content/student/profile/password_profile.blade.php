@@ -12,7 +12,7 @@
         margin-top: 15%; 
         margin-bottom: 15%">
         <div class="profile-square" style="background: #F0F0F0; padding: 5%">
-            <form action="{{ {{ url('/profile/update-password') }} }}" method="POST">
+            <form action="{{ url('/profile/update-password') }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="row profile-detail py-2">

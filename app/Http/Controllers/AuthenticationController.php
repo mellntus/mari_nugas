@@ -31,7 +31,7 @@ class AuthenticationController extends Controller
         $data = User::with('roles')->where('email', $request->inputEmail);
 
         // Check data exists or not
-        if (!$data->exist()) {
+        if (!$data->exists()) {
             return back()->with(
                 'loginError',
                 'Email or password is wrong'
