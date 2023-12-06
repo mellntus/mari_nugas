@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('uid')->unique();
             $table->string('owner_id');
             $table->string('group_id');
+            $table->string('title');
             $table->text('description');
             $table->timestamp('due_data')
                 ->nullable();

@@ -11,6 +11,7 @@
             <tr>
                 <th scope="col"></th>
                 <th scope="col">Assignment</th>
+                <th scope="col">Group</th>
                 <th scope="col">Status</th>
                 <th scope="col">Deadline</th>
                 <th scope="col">Action</th>
@@ -18,6 +19,28 @@
             </thead>
             <tbody>
                 {{-- Foreach Here --}}
+                @forelse ($assignments as $assignment)
+                    <tr>
+                        <th scope="row"></th>
+                        <td>{{ $assignment->task->title }}</td>
+                        <td>{{ $assignment->group->title }}</td>
+                        <td>Not Done</td>
+                        <td>{{ $assignment->task->due_date }}</td>                        
+                        <td>
+                            <div class="d-flex">
+                                <a href={{ url('/student/assignment/'.$assignment->task->uid.'/detail') }}>View</a>
+                                <a href={{ url('/student/assignment/'.$assignment->task->uid.'/prepare') }}>Submit</a>
+                            </div>
+                        </td>                        
+
+                    </tr>
+                @empty
+                <tr>
+                    <div class="alert alert-danger">
+                        Data assignment belum Tersedia.
+                    </div>
+                </tr>
+                @endforelse
             <tr>
                 <th scope="row"></th>
                 <td>Lorem Ipsum</td>

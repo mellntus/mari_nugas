@@ -65,7 +65,7 @@
                     <div class="col-9">
                         {{-- FILE --}}
                         <input class="form-control @error('error-file') is-invalid @enderror" type="file"
-                        id="student-assignment-file" name="student-assignment-file" required>
+                        id="student_assignment_file" name="student_assignment_file" required>
                         @error('error-file')
                         <div class="invalid-feedback">
                             {{ $message }}

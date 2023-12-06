@@ -15,6 +15,7 @@ class DetailTask extends Model
         'uid',
         'owner_id',
         'group_id',
+        'title',
         'description',
         'due_date',
         'task_sample'

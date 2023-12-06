@@ -66,9 +66,9 @@ Route::group(['middleware' => ['auth']], (function () {
 Route::group(['middleware' => ['auth']], (function () {
     // Assignment
     Route::get('/student/assignment', [ListTaskController::class, 'index_student']);
-    Route::get('/student/assignment/id/detail', [ListTaskController::class, 'show_assignment_student']);
-    Route::get('/student/assignment/id/prepare', [ListTaskController::class, 'prepare_assignment_student']);
-    Route::post('/student/assignment/id/submit', [ListTaskController::class, 'submit_assignment_student']);
+    Route::get('/student/assignment/{id}/detail', [ListTaskController::class, 'show_assignment_student']);
+    Route::get('/student/assignment/{id}/prepare', [ListTaskController::class, 'prepare_assignment_student']);
+    Route::post('/student/assignment/{id}/submit', [ListTaskController::class, 'submit_assignment_student']);
 
     // Study Groups
     Route::get('/student/study-groups', [ListGroupsController::class, 'index_student']);
@@ -77,7 +77,7 @@ Route::group(['middleware' => ['auth']], (function () {
 
 // Teacher Routes ---------------------------------------------------------------------------
 // Student Routes ---------------------------------------------------------------------------
-Route::group(['middleware' => ['auth', 'auth.teacher']], (function () {
+Route::group(['middleware' => ['auth']], (function () {
     // Assignment
     Route::get('/teacher/assignment', [ListTaskController::class, 'index_teacher']);
     Route::get('/teacher/assignment/prepare', [ListTaskController::class, 'prepare_assignment_teacher']);
@@ -86,16 +86,16 @@ Route::group(['middleware' => ['auth', 'auth.teacher']], (function () {
     Route::get('/teacher/assignment/id/status', [ListTaskController::class, 'status_assignment_teacher']);
     Route::get('/teacher/assignment/id/status/student', [ListTaskController::class, 'detail_status_assignment_teacher']);
     // Study Groups
-    Route::get('/teacher/study-groups', [ListGroupsController::class, 'index_teacher']);
-    Route::get('/teacher/study-groups/prepare', [ListGroupsController::class, 'prepare_study_groups_teacher']);
-    Route::post('/teacher/study-groups/create', [ListGroupsController::class, 'create_study_groups_teacher']);
-    Route::get('/teacher/study-groups/id/detail', [ListGroupsController::class, 'detail_study_groups_teacher']);
-    Route::get('/teacher/study-groups/id/edit', [ListGroupsController::class, 'edit_study_groups_teacher']);
-    Route::post('/teacher/study-groups/id/invite', [ListGroupsController::class, 'invite_study_groups_teacher']);
+    Route::get('/teacher/study_groups', [ListGroupsController::class, 'index_teacher']);
+    Route::get('/teacher/study_groups/prepare', [ListGroupsController::class, 'prepare_study_groups_teacher']);
+    Route::post('/teacher/study_groups/create', [ListGroupsController::class, 'create_study_groups_teacher']);
+    Route::get('/teacher/study_groups/id/detail', [ListGroupsController::class, 'detail_study_groups_teacher']);
+    Route::get('/teacher/study_groups/id/edit', [ListGroupsController::class, 'edit_study_groups_teacher']);
+    Route::post('/teacher/study_groups/id/invite', [ListGroupsController::class, 'invite_study_groups_teacher']);
 }));
 
 // Resource
 Route::resource('profile', ProfileController::class);
 Route::resource('notes', NotesController::class);
-Route::resource('list-assignment', ListTaskController::class);
-Route::resource('list-group', ListGroupsController::class);
+Route::resource('list_assignment', ListTaskController::class);
+Route::resource('list_group', ListGroupsController::class);

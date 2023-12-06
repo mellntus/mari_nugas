@@ -2,72 +2,129 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailTask;
 use App\Models\ListTask;
 use App\Http\Requests\StoreListTaskRequest;
 use App\Http\Requests\UpdateListTaskRequest;
+use App\Utility\Utility;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 
 class ListTaskController extends Controller
 {
     // ----------------------------------------
     // Student Section
     /**
-     * Display a listing of the resource.
+     * Student - Show list of assigned task
      */
     public function index_student()
     {
-        // Validation for student and teacher
+        // Get from current session
+        $data = Auth::user();
+
+        // Check roles
+        if ($data->roles->name != "student") {
+            return redirect()->route('list_assignment.index_teacher');
+        }
+
+        // Get all assignment data
+        $assignment = ListTask::with(['user', 'task', 'group'])->get();
 
         // Default student assignment page as dashboard
-        return view('content.student.assignment.assignment');
+        return view('content.' . $data->roles->name . '.assignment.assignment', [
+            'assignments' => $assignment
+        ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Student - Show detail of assignment
      */
-    public function submit_assignment_student()
+    public function show_assignment_student($id)
     {
-        return view("content.student.assignment.submit_assignment");
+        // Get from current session
+        $data = Auth::user();
+
+        // Check roles
+        if ($data->roles->name != "student") {
+            return redirect()->route('list_assignment.index_teacher');
+        }
+
+        // Get detail assignment
+        $detail_assignment = DetailTask::where('uid', $id);
+
+        // Check data assignment
+        if (!$detail_assignment->exists()) {
+            return redirect()->route('list_assignment.index_student')->with(['error', 'Detail assignment tidak ditemukan']);
+        }
+
+        $detail_assignment = DetailTask::with(['user', 'group'])->where('uid', $id)->first();
+
+        return view("content.student.assignment.detail_assignment", [
+            'detail_assignment' => $detail_assignment
+        ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Student - Prepare for submit assignment
      */
-    public function store_assignment_student(StoreListTaskRequest $request)
+    public function prepare_assignment_student($id)
     {
-        //
+        // Get from current session
+        $data = Auth::user();
+
+        // Check roles
+        if ($data->roles->name != "student") {
+            return redirect()->route('list_assignment.index_teacher');
+        }
+
+        // Get detail assignment
+        $detail_assignment = DetailTask::where('uid', $id);
+
+        // Check data assignment
+        if (!$detail_assignment->exists()) {
+            return redirect()->route('list_assignment.index_student')->with(['error', 'Detail assignment tidak ditemukan']);
+        }
+
+        $detail_assignment = DetailTask::with(['user', 'group'])->where('uid', $id)->first();
+
+        return view("content.student.assignment.submit_assignment", [
+            'detail_assignment' => $detail_assignment
+        ]);
     }
 
     /**
-     * Display the specified resource.
+     * Student - Submit the assignment
      */
-    public function show_assignment_student(ListTask $listTask)
+    public function update_assignment_student(Request $request, $id)
     {
-        return view("content.student.assignment.detail_assignment");
+        // Get from current session
+        $data = Auth::user();
+
+        // Check roles
+        if ($data->roles->name != "student") {
+            return redirect()->route('list_assignment.index_teacher');
+        }
+
+        // Get detail assignment
+        $detail_assignment = DetailTask::where('uid', $id);
+
+        // Check data assignment
+        if (!$detail_assignment->exists()) {
+            return redirect()->route('list_assignment.index_student')->with(['error', 'Detail assignment tidak ditemukan']);
+        }
+
+        $utility = new Utility();
+
+        $detail_assignment = $detail_assignment->first();
+        $detail_assignment->update([
+            'file_submitted' => $request->student_assignment_file,
+            'submitted_at' => $utility->get_current_time()
+        ]);
+
+        return redirect()->route('list_assignment.index_student')->with(['success', 'Berhasil mengumpulkan tugas']);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function prepare_assignment_student(ListTask $listTask)
-    {
-        return view("content.student.assignment.submit_assignment");
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update_assignment_student(UpdateListTaskRequest $request, ListTask $listTask)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy_assignment_student(ListTask $listTask)
-    {
-        //
-    }
 
 
     // ----------------------------------------
@@ -147,5 +204,27 @@ class ListTaskController extends Controller
     public function destroy_assignment_teacher(ListTask $listTask)
     {
         //
+    }
+
+    public function show_file($id)
+    {
+        $pdf = DetailTask::find($id);
+
+        $response = Response::make($pdf->image, 200);
+        $response->header('Content-Type', 'application/pdf');
+        $response->header('Content-Disposition', 'inline; filename="' . $pdf->image . '"');
+
+        return $response;
+    }
+
+    public function download($id)
+    {
+        $pdf = DetailTask::find($id);
+
+        $response = Response::make($pdf->image, 200);
+        $response->header('Content-Type', 'application/pdf');
+        $response->header('Content-Disposition', 'attachment; filename="' . $pdf->image . '"');
+
+        return $response;
     }
 }

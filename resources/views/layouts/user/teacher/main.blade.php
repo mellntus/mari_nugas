@@ -21,7 +21,7 @@
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
 
     {{-- Jquert --}}
-    <script src="/js/jquery-3.6.0.js"></script>
+    {{-- <script src="/js/jquery-3.6.0.js"></script> --}}
 
     {{-- Toast --}}
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
