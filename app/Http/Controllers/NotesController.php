@@ -56,24 +56,6 @@ class NotesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        // Get from current session
-        $data = Auth::user();
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show()
-    {
-        // Get from current session
-        $data = Auth::user();
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit($id)
