@@ -49,5 +49,18 @@
                 @endforelse
             </tbody>
         </table>
+        @if (session()->has('success'))
+            <div class="alert alert-success  fade show" role="alert" style="display: flex; justify-content: space-between">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        @if (session()->has('error'))
+            <div class="alert alert-danger fade show" role="alert" style="display: flex; justify-content: space-between">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
     </div>
 @endsection

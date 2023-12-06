@@ -33,13 +33,6 @@ class NotesController extends Controller
         // Get from current session
         $data = Auth::user();
 
-        // Validate current input data
-        // $this->validate($request, [
-        //     'image'     => 'required|mimes:pdf|max:10000',
-        //     'title'     => 'required',
-        //     'content'   => 'required'
-        // ]);
-
         $utility = new Utility();
 
         // Create notes
@@ -51,8 +44,7 @@ class NotesController extends Controller
         ]);
 
         // Send response
-
-        return redirect()->route('notes.index');
+        return redirect()->route('notes.index')->with(['success' => 'Berhasil menambahkan data']);
     }
 
     public function prepare()
@@ -113,9 +105,11 @@ class NotesController extends Controller
                 'title' => $request->edit_notes_title,
                 'description' => $request->edit_notes_content
             ]);
+
+            return redirect()->route('notes.index')->with(['success' => 'Update data berhasil']);
         }
 
-        return redirect()->route('notes.index');
+        return redirect()->route('notes.index')->with(['error' => 'Terjadi kesalahan ketika update data']);
     }
 
     /**
@@ -127,7 +121,7 @@ class NotesController extends Controller
         $notes = Notes::where('uid', $id);
 
         if (!$notes->exists()) {
-            return redirect()->route('notes.index')->with(['success' => 'Terjadi kesalahan ketika hapus data']);
+            return redirect()->route('notes.index')->with(['error' => 'Terjadi kesalahan ketika hapus data']);
         }
 
         //delete post
