@@ -31,7 +31,9 @@
                             <div class="d-flex">
                                 <a href={{ url('/notes/'.$note->uid.'/detail') }}>
                                     <button class="btn btn-success" type="submit">View</button></a>
-                                <form action={{ url('/notes/'.$note->uid.'/destroy') }} method="POST">
+                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ url('/notes/'.$note->uid.'/destroy') }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
                                     <button class="btn btn-danger" type="submit">Delete</button></a>
                                 </form>    
                             </div>

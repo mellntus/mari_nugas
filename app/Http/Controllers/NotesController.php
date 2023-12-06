@@ -102,8 +102,6 @@ class NotesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Get from current session
-        $data = Auth::user();
 
         // Get detail notes
         $notes = Notes::where('uid', $id);
@@ -125,9 +123,17 @@ class NotesController extends Controller
      */
     public function destroy($id)
     {
-        // Get from current session
-        $data = Auth::user();
+        // Get detail
+        $notes = Notes::where('uid', $id);
 
-        return view("content." . $data->roles->name . ".notes.notes");
+        if (!$notes->exists()) {
+            return redirect()->route('notes.index')->with(['success' => 'Terjadi kesalahan ketika hapus data']);
+        }
+
+        //delete post
+        $notes->delete();
+
+        //redirect to index
+        return redirect()->route('notes.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

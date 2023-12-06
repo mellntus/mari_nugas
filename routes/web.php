@@ -59,7 +59,7 @@ Route::group(['middleware' => ['auth']], (function () {
     // Note Page - Detail
     Route::get('/notes/{id}/detail', [NotesController::class, 'edit']);
     Route::put('/notes/{id}/update', [NotesController::class, 'update']);
-    Route::put('/notes/{id}/destroy', [NotesController::class, 'destroy']);
+    Route::delete('/notes/{id}/destroy', [NotesController::class, 'destroy']);
 }));
 
 // Student Routes ---------------------------------------------------------------------------
