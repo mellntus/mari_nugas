@@ -64,7 +64,14 @@ class NotesController extends Controller
         $data = Auth::user();
 
         // Get detail notes
-        $notes = Notes::where('uid', $id)->first();
+        $notes = Notes::where('uid', $id);
+
+        // Check if data exists for current user
+        if (!$notes->exists()) {
+            return redirect()->route('notes.index')->with(['error' => 'Data tidak ditemukan']);
+        }
+
+        $notes->first();
 
         return view("content." . $data->roles->name . ".notes.detail_notes", [
             'note' => $notes
