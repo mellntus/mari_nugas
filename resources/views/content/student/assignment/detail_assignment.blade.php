@@ -17,7 +17,7 @@
                     <h5>Title</h5>
                 </div>
                 <div class="col-9">
-                    <h5>: Lorem Ipsum</h5>
+                    <h5>: {{ $detail_assignment->title }}</h5>
                 </div>
             </div>
             <div class="row detail-assignment-data py-2">
@@ -25,7 +25,7 @@
                     <h5>Description</h5>
                 </div>
                 <div class="col-9">
-                    <h5>: Lorem Ipsum Doloreds</h5>
+                    <h5>: {{ $detail_assignment->description }}</h5>
                 </div>
             </div>
             <div class="row detail-assignment-data py-2">
@@ -34,9 +34,13 @@
                 </div>
                 <div class="col-9">
                     <h5>: 
-                        <a href="">
-                            File here
-                        </a>
+                        @if (empty($detail_assignment->task_sample))
+                            -
+                        @else    
+                            <a href="{{ url('/student/assignment/sample/'.$detail_assignment->uid.'/show') }}">
+                                File Sample
+                            </a>
+                        @endif
                     </h5>
                 </div>
             </div>
@@ -53,7 +57,7 @@
                     <h5>Study Group</h5>
                 </div>
                 <div class="col-9">
-                    <h5>: Meong Group</h5>
+                    <h5>: {{ $detail_assignment->group->title }}</h5>
                 </div>
             </div>
             <div class="row detail-assignment-data py-2">
@@ -62,9 +66,13 @@
                 </div>
                 <div class="col-9">
                     <h5>: 
-                        <a href="">
-                            File here
-                        </a>
+                        @if (empty($current_assignment->file_submitted))
+                            -
+                        @else
+                            <a href="{{ url('/student/assignment/submitted/'.$detail_assignment->uid.'/show') }}">
+                                Submitted File
+                            </a>
+                        @endif
                     </h5>
                 </div>
             </div>

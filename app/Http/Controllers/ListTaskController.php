@@ -52,16 +52,19 @@ class ListTaskController extends Controller
 
         // Get detail assignment
         $detail_assignment = DetailTask::where('uid', $id);
+        $current_assignment = ListTask::where('task_id', $id);
 
         // Check data assignment
-        if (!$detail_assignment->exists()) {
+        if (!$detail_assignment->exists() || !$current_assignment->exists()) {
             return redirect()->route('list_assignment.index_student')->with(['error', 'Detail assignment tidak ditemukan']);
         }
 
         $detail_assignment = DetailTask::with(['user', 'group'])->where('uid', $id)->first();
+        $current_assignment = $current_assignment->first();
 
         return view("content.student.assignment.detail_assignment", [
-            'detail_assignment' => $detail_assignment
+            'detail_assignment' => $detail_assignment,
+            'current_assignment' => $current_assignment
         ]);
     }
 
@@ -105,6 +108,10 @@ class ListTaskController extends Controller
         if ($data->roles->name != "student") {
             return redirect()->route('list_assignment.index_teacher');
         }
+
+        $this->validate($request, [
+            'student_assignment_file'     => 'required|mimes:pdf|max:10000',
+        ]);
 
         // Get detail assignment
         $detail_assignment = DetailTask::where('uid', $id);
@@ -206,22 +213,44 @@ class ListTaskController extends Controller
         //
     }
 
-    public function show_file($id)
+    public function show_file_submitted($id)
     {
-        $pdf = DetailTask::find($id);
+        $pdf = ListTask::find($id);
 
-        $response = Response::make($pdf->image, 200);
+        $response = Response::make($pdf->file_submitted, 200);
         $response->header('Content-Type', 'application/pdf');
         $response->header('Content-Disposition', 'inline; filename="' . $pdf->image . '"');
 
         return $response;
     }
 
-    public function download($id)
+    public function show_file_sample($id)
     {
         $pdf = DetailTask::find($id);
 
-        $response = Response::make($pdf->image, 200);
+        $response = Response::make($pdf->task_sample, 200);
+        $response->header('Content-Type', 'application/pdf');
+        $response->header('Content-Disposition', 'inline; filename="' . $pdf->image . '"');
+
+        return $response;
+    }
+
+    public function download_submitted($id)
+    {
+        $pdf = ListTask::find($id);
+
+        $response = Response::make($pdf->file_submitted, 200);
+        $response->header('Content-Type', 'application/pdf');
+        $response->header('Content-Disposition', 'attachment; filename="' . $pdf->image . '"');
+
+        return $response;
+    }
+
+    public function download_sample($id)
+    {
+        $pdf = DetailTask::find($id);
+
+        $response = Response::make($pdf->task_sample, 200);
         $response->header('Content-Type', 'application/pdf');
         $response->header('Content-Disposition', 'attachment; filename="' . $pdf->image . '"');
 

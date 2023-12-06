@@ -20,8 +20,7 @@ return new class extends Migration
                 ->nullable();
             $table->timestamp('submitted_at')
                 ->nullable();
-            $table->timestamp('created_at')
-                ->useCurrent()->useCurrentOnUpdate();
+            $table->timestamps();
         });
     }
 
