@@ -21,6 +21,26 @@
             </thead>
             <tbody>
                 {{-- Foreach Here --}}
+                @forelse ($assignments as $assignment)
+                    <tr>
+                        <th scope="row"></th>
+                        <td>{{ $assignment->title }}</td>
+                        <td><strong>{{ $assignment->rate_submitted }}</strong></td>
+                        <td>{{ $assignment->due_date }}</td>
+                        <td>
+                            <div class="d-flex">
+                                <a href={{ url('/teacher/assignment/'.$assignment->uid.'/detail') }}>View</a>
+                                <a href={{ url('/teacher/assignment/'.$assignment->uid.'/status') }}>Status</a>
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <div class="alert alert-danger">
+                            Data assignment belum ditemukan.
+                        </div>
+                    </tr>
+                @endforelse
             <tr>
                 <th scope="row"></th>
                 <td>Lorem Ipsum</td>
@@ -44,5 +64,18 @@
             </tr>
             </tbody>
         </table>
+        @if (session()->has('success'))
+            <div class="alert alert-success  fade show" role="alert" style="display: flex; justify-content: space-between">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        @if (session()->has('error'))
+            <div class="alert alert-danger fade show" role="alert" style="display: flex; justify-content: space-between">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
     </div>
 @endsection

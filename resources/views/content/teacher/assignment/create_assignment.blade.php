@@ -18,7 +18,7 @@
                         <h5>Title</h5>
                     </div>
                     <div class="col-9">
-                        <input type="text" id="create-assignment-title" name="edit-notes-title" style="width: -webkit-fill-available" required>
+                        <input type="text" id="create_assignment_title" name="create_assignment_title" style="width: -webkit-fill-available" placeholder="Lorem Ipsum" required>
                     </div>
                 </div>
                 <div class="row teacher-create-assignment-data py-2">
@@ -26,7 +26,15 @@
                         <h5>Description</h5>
                     </div>
                     <div class="col-9">
-                        <textarea type="text" id="create-assignment-description" style="width: -webkit-fill-available; max-height: 200px"></textarea>
+                        <textarea type="text" id="create_assignment_description" name="create_assignment_description" placeholder="Lorem Ipsum" style="width: -webkit-fill-available; max-height: 200px" required></textarea>
+                    </div>
+                </div>
+                <div class="row teacher-create-assignment-data py-2">
+                    <div class="col-3">
+                        <h5>Due Date</h5>
+                    </div>
+                    <div class="col-9">
+                        <input type="date" id="create_assignment_date" name="create_assignment_date" style="width: -webkit-fill-available" placeholder="Lorem Ipsum" required>
                     </div>
                 </div>
                 <div class="row teacher-create-assignment-data py-2">
@@ -34,11 +42,12 @@
                         <h5>Study Group</h5>
                     </div>
                     <div class="col-9">
-                        <select name="-" id="create-assignment-study-groups" style="width: -webkit-fill-available">
-                            <option value="1">Volvo</option>
-                            <option value="2">Saab</option>
-                            <option value="3">Opel</option>
-                            <option value="4">Audi</option>
+                        <select name="-" id="create_assignment_study-groups" name="create_assignment_study" style="width: -webkit-fill-available" required>
+                            @forelse ($list_groups as $group)
+                                <option value="{{ $group->uid }}">{{ $group->title }}</option>
+                            @empty
+                                <option value="">No Groups Created</option>
+                            @endforelse
                         </select>
                     </div>
                 </div>
@@ -49,7 +58,7 @@
                     <div class="col-9">
                         {{-- FILE --}}
                         <input class="form-control @error('error-file') is-invalid @enderror" type="file"
-                        id="teacher-assignment-file" name="teacher-assignment-file" required>
+                        id="teacher_assignment_file" name="teacher_assignment_file" required>
                         @error('error-file')
                         <div class="invalid-feedback">
                             {{ $message }}

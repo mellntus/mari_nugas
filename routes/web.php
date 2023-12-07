@@ -27,7 +27,7 @@ Route::get('/', [IndexController::class, 'index']);
 Route::get('/testing', [TestingController::class, 'index']);
 
 // Authentication Routes
-Route::group(['middleware' => ['guest']], (function () {
+Route::group(['middleware' => ['guest']], (function () { #
 
     // Login
     Route::get('/login', [AuthenticationController::class, 'index'])->name('login');
@@ -39,7 +39,7 @@ Route::group(['middleware' => ['guest']], (function () {
 }));
 
 // Dashboard Routes
-Route::group(['middleware' => ['auth']], (function () {
+Route::group(['middleware' => ['auth']], (function () { #
 
     // Logout
     Route::get('/logout', [AuthenticationController::class, 'prepare_logout']);
@@ -89,9 +89,9 @@ Route::group(['middleware' => ['auth']], (function () {
 // Teacher Routes ---------------------------------------------------------------------------
 Route::group(['middleware' => ['auth']], (function () {
     // Assignment
-    Route::get('/teacher/assignment', [ListTaskController::class, 'index_teacher']);
-    Route::get('/teacher/assignment/prepare', [ListTaskController::class, 'prepare_assignment_teacher']);
-    Route::post('/teacher/assignment/create', [ListTaskController::class, 'create_assignment_teacher']);
+    Route::get('/teacher/assignment', [ListTaskController::class, 'index_teacher']); #
+    Route::get('/teacher/assignment/prepare', [ListTaskController::class, 'prepare_assignment_teacher']); #
+    Route::post('/teacher/assignment/create', [ListTaskController::class, 'create_assignment_teacher']); #
     Route::get('/teacher/assignment/{id}/detail', [ListTaskController::class, 'show_assignment_teacher']);
     Route::get('/teacher/assignment/{id}/status', [ListTaskController::class, 'status_assignment_teacher']);
     Route::get('/teacher/assignment/{id}/status/student', [ListTaskController::class, 'detail_status_assignment_teacher']);

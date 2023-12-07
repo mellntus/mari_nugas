@@ -1,7 +1,6 @@
 <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px; height: -webkit-fill-available">
     <a id="sidebar-header" href="/teacher/assignment" class="d-flex align-items-center mb-3 mb-md-0 text-white text-decoration-none" style="align-self: center; flex-flow:column;">
         <img class="mb-1" alt="Bootstrap">
-        <h2 class="fs-6">Welcome, User ABC</h2>
     </a>
     <hr>
     <ul class="nav nav-item nav-pills flex-column mb-auto">

@@ -18,10 +18,8 @@ return new class extends Migration
             $table->string('group_id');
             $table->string('title');
             $table->text('description');
-            $table->timestamp('due_data')
-                ->nullable();
-            $table->timestamp('created_at')
-                ->useCurrent()->useCurrentOnUpdate();
+            $table->date('due_date');
+            $table->timestamps();
             $table->binary('task_sample')
                 ->nullable();
         });

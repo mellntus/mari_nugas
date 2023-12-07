@@ -6,6 +6,7 @@ use App\Models\DetailTask;
 use App\Models\ListTask;
 use App\Http\Requests\StoreListTaskRequest;
 use App\Http\Requests\UpdateListTaskRequest;
+use App\Models\DetailGroups;
 use App\Utility\Utility;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -141,7 +142,21 @@ class ListTaskController extends Controller
      */
     public function index_teacher()
     {
-        // Validation for student and teacher
+        // Get from current session
+        $data = Auth::user();
+
+        // Check roles
+        if ($data->roles->name != "teacher") {
+            return redirect()->route('list_assignment.index_student');
+        }
+
+        // Get all assignment data
+        $assignment = DetailTask::with(['user', 'group'])->get();
+
+        // Default student assignment page as dashboard
+        return view('content.' . $data->roles->name . '.assignment.assignment', [
+            'assignments' => $assignment
+        ]);
 
         // Default student assignment page as dashboard
         return view('content.teacher.assignment.assignment');
@@ -149,17 +164,53 @@ class ListTaskController extends Controller
 
     public function prepare_assignment_teacher()
     {
-        // Validation for student and teacher
+        // Get from current session
+        $data = Auth::user();
+
+        // Check roles
+        if ($data->roles->name != "teacher") {
+            return redirect()->route('list_assignment.index_student');
+        }
+
+        // Get List Created Groups
+        $list_groups = DetailGroups::where("owner_id", $data->uid);
 
         // Default student assignment page as dashboard
-        return view('content.teacher.assignment.create_assignment');
+        return view('content.teacher.assignment.create_assignment', [
+            'list_groups' => $list_groups
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function submit_assignment_teacher()
+    public function submit_assignment_teacher(Request $request)
     {
+        // Get from current session
+        $data = Auth::user();
+
+        // Check roles
+        if ($data->roles->name != "teacher") {
+            return redirect()->route('list_assignment.index_student');
+        }
+
+        // Save file to local copy
+        $sample_file = $request->file('teacher_assignment_file');
+        $sample_file->storeAs('public/blogs', $sample_file);
+
+        $utility = new Utility();
+
+        // Set to detail model
+        DetailTask::create([
+            'uid' => $utility->get_uuid(),
+            'owner_id' => $data->uid,
+            'group_id' => $request->create_assignment_study,
+            'title' => $request->create_assignment_title,
+            'description' => $request->create_assignment_description,
+            'due_date' => $request->create_assignment_date,
+            'task_sample' => $sample_file
+        ]);
+
         return view("content.teacher.assignment.submit_assignment");
     }
 
