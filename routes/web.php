@@ -38,6 +38,12 @@ Route::group(['middleware' => ['guest']], (function () {
 
 // Dashboard Routes
 Route::group(['middleware' => ['auth']], (function () {
+    // Resource
+    Route::resource('profile', ProfileController::class);
+    Route::resource('notes', NotesController::class);
+    Route::resource('list_assignment', ListTaskController::class);
+    Route::resource('list_group', ListGroupsController::class);
+
     // Logout
     Route::get('/logout', [AuthenticationController::class, 'prepare_logout']);
     Route::post('/logout', [AuthenticationController::class, 'logout']);
@@ -100,9 +106,3 @@ Route::group(['middleware' => ['auth']], (function () {
     Route::get('/teacher/study_groups/{id}/edit', [ListGroupsController::class, 'edit_study_groups_teacher']);
     Route::post('/teacher/study_groups/{id}/invite', [ListGroupsController::class, 'invite_study_groups_teacher']);
 }));
-
-// Resource
-Route::resource('profile', ProfileController::class);
-Route::resource('notes', NotesController::class);
-Route::resource('list_assignment', ListTaskController::class);
-Route::resource('list_group', ListGroupsController::class);

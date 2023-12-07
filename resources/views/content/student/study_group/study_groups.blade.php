@@ -34,30 +34,12 @@
 
                     </tr>
                 @empty
-                <tr>
-                    <div class="alert alert-danger">
-                        Data group belum ditemukan.
-                    </div>
-                </tr>
+                    <tr>
+                        <div class="alert alert-danger">
+                            Data group belum ditemukan.
+                        </div>
+                    </tr>
                 @endforelse
-            <tr>
-                <th scope="row"></th>
-                <td>Lorem Ipsum</td>
-                <td>12</td>
-                <td><a href="/student/study-groups/id/left">Left</a><span>
-            </tr>
-            <tr>
-                <th scope="row"></th>
-                <td>Lorem Ipsum</td>
-                <td>12</td>
-                <td><a href="/student/study-groups/id/left">Left</a><span>
-            </tr>
-            <tr>
-                <th scope="row"></th>
-                <td>Lorem Ipsum</td>
-                <td>12</td>
-                <td><a href="/student/study-groups/id/left">Left</a><span>
-            </tr>
             </tbody>
         </table>
     </div>
