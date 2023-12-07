@@ -24,7 +24,7 @@
         </a>
       </li>
       <li>
-        <a href="/teacher/study-groups" class="nav-link text-white">
+        <a href="/teacher/study_groups" class="nav-link text-white">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
           Study Groups
         </a>

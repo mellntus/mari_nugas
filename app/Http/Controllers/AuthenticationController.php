@@ -52,7 +52,7 @@ class AuthenticationController extends Controller
         Auth::login($data);
         $request->session()->regenerate();
 
-        return redirect()->intended('/' . $data->roles->name . '/assignment');
+        return redirect()->route('profile.index');
     }
 
     public function register(Request $request)
@@ -82,6 +82,17 @@ class AuthenticationController extends Controller
         ]);
 
         return redirect('/login')->with('success', 'Account has been created!');
+    }
+
+    public function prepare_logout(Request $request): RedirectResponse
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 
     public function logout(Request $request): RedirectResponse
