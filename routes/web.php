@@ -72,7 +72,7 @@ Route::group(['middleware' => ['auth']], (function () {
 
     // Study Groups
     Route::get('/student/study-groups', [ListGroupsController::class, 'index_student']);
-    Route::post('/student/study-groups/{id}/left', [ListGroupsController::class, 'left_student_group']);
+    Route::delete('/student/study-groups/{id}/left', [ListGroupsController::class, 'left_group_student']);
 
     // Download File
     Route::get('/student/assignment/sample/{id}/download', [ListTaskController::class, 'download_sample']);

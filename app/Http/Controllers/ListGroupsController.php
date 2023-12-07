@@ -14,7 +14,29 @@ class ListGroupsController extends Controller
      */
     public function index_student()
     {
-        return view("content.student.study_group.study_groups");
+        // Get from current session
+        $data = Auth::user();
+
+        // Check roles
+        if ($data->roles->name != "student") {
+            return redirect()->route('list_group.index_teacher');
+        }
+
+        // Get current user joined groups
+        $groups = ListGroups::where('participant_id', $data->uid);
+
+        // Check current data
+        if ($data->exists()){
+            // Get all detail participants
+            for($index = 1; $index <= count($groups); $index++){
+                $current_groups_participant = ListGroups::where('group_id', $groups->group_id);
+                $groups[$index]['total_participant'] = count($current_groups_participant);
+            }
+        };
+
+        return view("content.".$data->roles->name.".study_group.study_groups", [
+            'groups' => $groups
+        ]);
     }
 
     /**
@@ -60,9 +82,30 @@ class ListGroupsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ListGroups $listGroups)
+    public function left_group_student($id)
     {
-        //
+        // Get from current session
+        $data = Auth::user();
+
+        // Check roles
+        if ($data->roles->name != "student") {
+            return redirect()->route('list_group.index_teacher');
+        }
+
+        // Get detail list groups
+        $current_groups = ListGroups::where([
+            "participant_id", $data->uid,
+            "group_id", $id
+        ]);
+
+        if (!$groups->exists()){
+            return redirect()->route('list_group.index_student')->with(['error' => 'Terjadi kesalahan ketika hapus data']);
+        }
+
+        // Delete from joined groups
+        $current_groups->delete();
+
+        return redirect()->route('list_group.index_student')->with(['success' => 'Sukses keluar dari group']);
     }
 
     // Teacher Section -----------------------------------------------
