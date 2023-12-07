@@ -11,34 +11,28 @@
             <tr>
                 <th scope="col"></th>
                 <th scope="col">Student</th>
-                <th scope="col">Status</th>
-                <th scope="col">Deadline</th>
-                <th scope="col">Action</th>
+                <th scope="col">File</th>
+                <th scope="col">Submitted At</th>
             </tr>
             </thead>
             <tbody>
                 {{-- Foreach Here --}}
-            <tr>
-                <th scope="row"></th>
-                <td>Lorem Ipsum</td>
-                <td style="background-color: green"><strong>Submitted</strong></td>
-                <td>2023-12-09</td>
-                <td><a href="/teacher/assignment/id/status/student">View</a></td>
-            </tr>
-            <tr>
-                <th scope="row"></th>
-                <td>Dolored Lamu</td>
-                <td style="background-color: green"><strong>Submitted</strong></td>
-                <td>2023-12-09</td>
-                <td><a href="/teacher/assignment/id/status/student">View</a></td>
-            </tr>
-            <tr>
-                <th scope="row"></th>
-                <td>Skuknu Rekmend</td>
-                <td style="background-color: green"><strong>Submitted</strong></td>
-                <td>2023-12-09</td>
-                <td><a href="/teacher/assignment/id/status/student">View</a></td>
-            </tr>
+                @forelse ($participants as $participant)
+                    <tr>
+                        <th scope="row"></th>
+                        <td>{{ $participant->user->name }}</td>
+                        <td><a href="{{ url('/teacher/assignment/'.$participant->task_id.'/submitted/'.$participant->participant_id.'/show') }}">
+                            File Sample
+                        </a></td>
+                        <td>{{ $participant->submitted_at }}</td>
+                    </tr>
+                @empty
+                <tr>
+                    <div class="alert alert-danger">
+                        Pengumpulan assignment belum tersedia.
+                    </div>
+                </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

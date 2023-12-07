@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\DetailTask;
 use App\Models\ListTask;
-use App\Http\Requests\StoreListTaskRequest;
-use App\Http\Requests\UpdateListTaskRequest;
 use App\Models\DetailGroups;
+use App\Models\ListGroups;
 use App\Utility\Utility;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -291,12 +290,25 @@ class ListTaskController extends Controller
         return redirect()->route('list_assignment.index_teacher')->with(['success', 'Berhasil mengumpulkan tugas']);
     }
 
-    public function status_assignment_teacher(ListTask $listTask)
+    public function status_assignment_teacher($id)
     {
-        return view("content.teacher.assignment.status_assignment");
+        // Get from current session
+        $data = Auth::user();
+
+        // Check roles
+        if ($data->roles->name != "teacher") {
+            return redirect()->route('list_assignment.index_student');
+        }
+
+        // Get all groups participant
+        $participant = ListTask::with('user')->where('task_id', $id);
+
+        return view("content.teacher.assignment.status_assignment", [
+            'participants' => $participant
+        ]);
     }
 
-    public function detail_status_assignment_teacher(ListTask $listTask)
+    public function detail_status_assignment_teacher($id)
     {
         return view("content.teacher.assignment.detail_status_assignment");
     }
@@ -309,9 +321,10 @@ class ListTaskController extends Controller
         //
     }
 
-    public function show_file_submitted($id)
+    public function show_file_submitted($task_id, $participant_id)
     {
-        $pdf = ListTask::find($id);
+        $pdf = ListTask::where(['task_id', $task_id])
+            ->where('participant_id', $participant_id)->first();
 
         $response = Response::make($pdf->file_submitted, 200);
         $response->header('Content-Type', 'application/pdf');
@@ -331,9 +344,10 @@ class ListTaskController extends Controller
         return $response;
     }
 
-    public function download_submitted($id)
+    public function download_submitted($task_id, $participant_id)
     {
-        $pdf = ListTask::find($id);
+        $pdf = ListTask::where(['task_id', $task_id])
+            ->where('participant_id', $participant_id)->first();
 
         $response = Response::make($pdf->file_submitted, 200);
         $response->header('Content-Type', 'application/pdf');
