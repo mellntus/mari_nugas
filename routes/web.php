@@ -93,8 +93,10 @@ Route::group(['middleware' => ['auth']], (function () {
     Route::get('/teacher/assignment/prepare', [ListTaskController::class, 'prepare_assignment_teacher']); #
     Route::post('/teacher/assignment/create', [ListTaskController::class, 'create_assignment_teacher']); #
     Route::get('/teacher/assignment/{id}/detail', [ListTaskController::class, 'show_assignment_teacher']);
+    Route::put('/teacher/assignment/{id}/update', [ListTaskController::class, 'update_assignment_teacher']);
     Route::get('/teacher/assignment/{id}/status', [ListTaskController::class, 'status_assignment_teacher']);
     Route::get('/teacher/assignment/{id}/status/student', [ListTaskController::class, 'detail_status_assignment_teacher']);
+
     // Study Groups
     Route::get('/teacher/study_groups', [ListGroupsController::class, 'index_teacher']);
     Route::get('/teacher/study_groups/prepare', [ListGroupsController::class, 'prepare_study_groups_teacher']);
@@ -102,6 +104,12 @@ Route::group(['middleware' => ['auth']], (function () {
     Route::get('/teacher/study_groups/{id}/detail', [ListGroupsController::class, 'detail_study_groups_teacher']);
     Route::get('/teacher/study_groups/{id}/edit', [ListGroupsController::class, 'edit_study_groups_teacher']);
     Route::post('/teacher/study_groups/{id}/invite', [ListGroupsController::class, 'invite_study_groups_teacher']);
+
+    // Download File
+    Route::get('/teacher/assignment/sample/{id}/download', [ListTaskController::class, 'download_sample']);
+
+    // Show File
+    Route::get('/teacher/assignment/sample/{id}/show', [ListTaskController::class, 'show_file_sample']);
 }));
 
 // Resource

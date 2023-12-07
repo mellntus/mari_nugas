@@ -115,7 +115,7 @@ class ListTaskController extends Controller
         ]);
 
         // Get detail assignment
-        $detail_assignment = DetailTask::where('uid', $id);
+        $detail_assignment = ListTask::where('uid', $id);
 
         // Check data assignment
         if (!$detail_assignment->exists()) {
@@ -215,19 +215,80 @@ class ListTaskController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Display the specified resource.
      */
-    public function store_assignment_teacher(StoreListTaskRequest $request)
+    public function show_assignment_teacher($id)
     {
-        //
+        // Get from current session
+        $data = Auth::user();
+
+        // Check roles
+        if ($data->roles->name != "teacher") {
+            return redirect()->route('list_assignment.index_student');
+        }
+
+        // Get detail assignment
+        $detail_assignment = DetailTask::with('group')->where('uid', $id);
+
+        // Check data assignment
+        if (!$detail_assignment->exists()) {
+            return redirect()->route('list_assignment.index_student')->with(['error', 'Detail assignment tidak ditemukan']);
+        }
+
+        return view("content.teacher.assignment.detail_assignment", [
+            'assignment' => $detail_assignment->first()
+        ]);
     }
 
     /**
-     * Display the specified resource.
+     * Update the specified resource in storage.
      */
-    public function show_assignment_teacher(ListTask $listTask)
+    public function update_assignment_teacher(Request $request, $id)
     {
-        return view("content.teacher.assignment.detail_assignment");
+        // Get from current session
+        $data = Auth::user();
+
+        $input_file = False;
+
+        // Check roles
+        if ($data->roles->name != "teacher") {
+            return redirect()->route('list_assignment.index_student');
+        }
+
+        // Check if there is assignment file
+        if ($request->hasFile('teacher_assignment_file')) {
+            $this->validate($request, [
+                'teacher_assignment_file' => 'mimes:pdf|max:10000',
+            ]);
+            $input_file = True;
+        }
+
+        // Get detail assignment
+        $detail_assignment = DetailTask::where('uid', $id);
+
+        // Check data assignment
+        if (!$detail_assignment->exists()) {
+            return redirect()->route('list_assignment.index_teacher')->with(['error', 'Detail assignment tidak ditemukan']);
+        }
+
+        $detail_assignment = $detail_assignment->first();
+
+        if ($input_file == True) {
+            $detail_assignment->update([
+                'title' => $request->edit_assignment_title,
+                'description' => $request->edit_assignment_description,
+                'due_date' => $request->edit_assignment_date,
+                'task_sample' => $request->file('teacher_assignment_file')
+            ]);
+        } else {
+            $detail_assignment->update([
+                'title' => $request->edit_assignment_title,
+                'description' => $request->edit_assignment_description,
+                'due_date' => $request->edit_assignment_date
+            ]);
+        }
+
+        return redirect()->route('list_assignment.index_teacher')->with(['success', 'Berhasil mengumpulkan tugas']);
     }
 
     public function status_assignment_teacher(ListTask $listTask)
@@ -238,22 +299,6 @@ class ListTaskController extends Controller
     public function detail_status_assignment_teacher(ListTask $listTask)
     {
         return view("content.teacher.assignment.detail_status_assignment");
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit_assignment_teacher(ListTask $listTask)
-    {
-        return view("content.student.assignment.submit_assignment");
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update_assignment_teacher(UpdateListTaskRequest $request, ListTask $listTask)
-    {
-        //
     }
 
     /**

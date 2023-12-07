@@ -13,13 +13,15 @@
     overflow-y: auto">
         <div class="teacher-detail-assignment-square" style="background: #F0F0F0; padding: 5%">
             <form action="/teacher/assignment/id/update" method="post">
+                @csrf
+                @method('PUT')
                 <input type="hidden" name="assignment-id">
                 <div class="row teacher-detail-assignment-data py-2">
                     <div class="col-3">
                         <h5>Title</h5>
                     </div>
                     <div class="col-9">
-                        <h5>: Lorem Ipsum</h5>
+                        <input type="text" id="edit_assignment_title" name="edit_assignment_title" style="width: -webkit-fill-available" placeholder="Lorem Ipsum" value="{{ $assignment->title }}" required>
                     </div>
                 </div>
                 <div class="row teacher-detail-assignment-data py-2">
@@ -27,7 +29,15 @@
                         <h5>Description</h5>
                     </div>
                     <div class="col-9">
-                        <h5>: Lorem Ipsum Doloreds</h5>
+                        <textarea type="text" id="edit_assignment_description" name="edit_assignment_description" placeholder="Lorem Ipsum" style="width: -webkit-fill-available; max-height: 200px" required>{{ $assignment->description }}</textarea>
+                    </div>
+                </div>
+                <div class="row teacher-detail-assignment-data py-2">
+                    <div class="col-3">
+                        <h5>Due Date</h5>
+                    </div>
+                    <div class="col-9">
+                        <input type="date" id="edit_assignment_date" name="edit_assignment_date" style="width: -webkit-fill-available" placeholder="Lorem Ipsum" value="{{ $assignment->due_date }}" required>
                     </div>
                 </div>
                 <div class="row teacher-detail-assignment-data py-2">
@@ -35,12 +45,13 @@
                         <h5>Sample File</h5>
                     </div>
                     <div class="col-9">
-                        <h5>: 
+                        @if (empty($assignment->task_sample))
                             -
-                            {{-- <a href="">
-                                File here
-                            </a> --}}
-                        </h5>
+                        @else    
+                            <a href="{{ url('/teacher/assignment/sample/'.$detail_assignment->uid.'/show') }}">
+                                File Sample
+                            </a>
+                        @endif
                     </div>
                 </div>
                 <div class="row teacher-detail-assignment-data py-2">
@@ -48,7 +59,7 @@
                         <h5>Study Group</h5>
                     </div>
                     <div class="col-9">
-                        <h5>: Meong Group</h5>
+                        <h5>: {{ $assignment->group->title }}</h5>
                     </div>
                 </div>
                 <div class="row teacher-detail-assignment-data py-2">
@@ -58,7 +69,7 @@
                     <div class="col-9">
                         {{-- FILE --}}
                         <input class="form-control @error('error-file') is-invalid @enderror" type="file"
-                        id="teacher-assignment-file" name="teacher-assignment-file" required>
+                        id="teacher_assignment_file" name="teacher_assignment_file">
                         @error('error-file')
                         <div class="invalid-feedback">
                             {{ $message }}
