@@ -74,8 +74,8 @@ Route::group(['middleware' => ['auth']], (function () {
     Route::put('/student/assignment/{id}/submit', [ListTaskController::class, 'submit_assignment_student'])->name('list_assignment.submit_assignment_student'); ##
 
     // Study Groups
-    Route::get('/student/study-groups', [ListGroupsController::class, 'index_student'])->name('list_group.index_student'); ##
-    Route::delete('/student/study-groups/{id}/left', [ListGroupsController::class, 'left_group_student'])->name('list_group.left_group_student'); ##
+    Route::get('/student/study_groups', [ListGroupsController::class, 'index_student'])->name('list_group.index_student'); ##
+    Route::delete('/student/study_groups/{id}/left', [ListGroupsController::class, 'left_group_student'])->name('list_group.left_group_student'); ##
 
     // Download File
     Route::get('/student/assignment/{task_id}/sample/{participant_id}/download', [ListTaskController::class, 'download_sample'])->name('list_assignment.download_sample'); ##

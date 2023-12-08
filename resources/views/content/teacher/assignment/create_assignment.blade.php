@@ -42,7 +42,7 @@
                         <h5>Study Group</h5>
                     </div>
                     <div class="col-9">
-                        <select name="-" id="create_assignment_study-groups" name="create_assignment_study" style="width: -webkit-fill-available" required>
+                        <select name="-" id="create_assignment_study_groups" name="create_assignment_study_groups" style="width: -webkit-fill-available" required>
                             @forelse ($list_groups as $group)
                                 <option value="{{ $group->uid }}">{{ $group->title }}</option>
                             @empty
