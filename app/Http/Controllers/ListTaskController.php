@@ -82,14 +82,14 @@ class ListTaskController extends Controller
         }
 
         // Get detail assignment
-        $detail_assignment = DetailTask::where('uid', $id);
+        $detail_assignment = DetailTask::with(['user', 'group'])->where('uid', $id);
 
         // Check data assignment
         if (!$detail_assignment->exists()) {
             return redirect()->route('list_assignment.index_student')->with(['error', 'Detail assignment tidak ditemukan']);
         }
 
-        $detail_assignment = DetailTask::with(['user', 'group'])->where('uid', $id)->first();
+        $detail_assignment = $detail_assignment->first();
 
         return view("content.student.assignment.submit_assignment", [
             'detail_assignment' => $detail_assignment
@@ -176,7 +176,7 @@ class ListTaskController extends Controller
 
         // Default student assignment page as dashboard
         return view('content.teacher.assignment.create_assignment', [
-            'list_groups' => $list_groups
+            'list_groups' => $list_groups->get()
         ]);
     }
 

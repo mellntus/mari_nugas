@@ -209,7 +209,7 @@ class ListGroupsController extends Controller
 
         return view("content.teacher.study_group.detail_study_groups", [
             'detail_group' => $detail_group,
-            'list_participant' => $list_participant
+            'list_participant' => $list_participant->get()
         ]);
     }
 
