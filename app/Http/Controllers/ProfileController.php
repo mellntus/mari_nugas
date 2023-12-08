@@ -27,11 +27,6 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function show()
-    {
-        return view('content.profile.edit_profile');
-    }
-
     public function edit(): View
     {
         // Get from current session
@@ -62,7 +57,7 @@ class ProfileController extends Controller
             ]);
         }
 
-        return redirect()->route('profile.index');
+        return redirect()->route('profile.index')->with('success', 'Berhasil mengupdate data profile');
     }
 
     public function password()
@@ -80,6 +75,11 @@ class ProfileController extends Controller
     {
         // Get from current session
         $data = Auth::user();
+
+        // Validate if old password is not same
+        if ($request->profile_old_password != $data->password) {
+            return back()->with("error", "The password is not correct");
+        }
 
         // Validate current password
         if ($request->profile_old_password == $request->profile_new_password) {
@@ -103,6 +103,6 @@ class ProfileController extends Controller
             ]);
         }
 
-        return redirect()->route('profile.index');
+        return redirect()->route('profile.index')->with('success', 'Berhasil mengupdate password profile');
     }
 }

@@ -183,7 +183,7 @@ class ListTaskController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function submit_assignment_teacher(Request $request)
+    public function create_assignment_teacher(Request $request)
     {
         // Get from current session
         $data = Auth::user();
@@ -306,19 +306,6 @@ class ListTaskController extends Controller
         return view("content.teacher.assignment.status_assignment", [
             'participants' => $participant
         ]);
-    }
-
-    public function detail_status_assignment_teacher($id)
-    {
-        return view("content.teacher.assignment.detail_status_assignment");
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy_assignment_teacher(ListTask $listTask)
-    {
-        //
     }
 
     public function show_file_submitted($task_id, $participant_id)

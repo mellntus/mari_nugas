@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="create-study-groups-link">
-        <a style="margin-bottom: 15px" href="/teacher/study-groups/prepare">Create a new study groups?</a>
+        <a style="margin-bottom: 15px" href="/teacher/study_groups/prepare">Create a new study groups?</a>
     </div>
     <div class="table-study-groups">
         <table class="table">

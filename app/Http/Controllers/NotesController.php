@@ -71,10 +71,8 @@ class NotesController extends Controller
             return redirect()->route('notes.index')->with(['error' => 'Data tidak ditemukan']);
         }
 
-        $notes->first();
-
         return view("content." . $data->roles->name . ".notes.detail_notes", [
-            'note' => $notes
+            'note' => $notes->first()
         ]);
     }
 

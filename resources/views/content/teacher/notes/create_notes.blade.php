@@ -18,7 +18,7 @@
                         <h4>TITLE</h4>
                     </div>
                     <div class="col-9">
-                        <input type="text" id="edit-notes-title" name="edit-notes-title" style="width: -webkit-fill-available" required>
+                        <input type="text" id="create_notes_title" name="create_notes_title" style="width: -webkit-fill-available" required>
                     </div>
                 </div>
                 <div class="row notes-create py-2">
@@ -26,8 +26,8 @@
                         <h4>CONTENT</h4>
                     </div>
                     <div class="col-9">
-                        <input id="edit-notes-content" placeholder="Lorem Ipsum" style="width: -webkit-fill-available" type="hidden" name="edit-notes-content" required>
-                        <trix-editor style="max-height: 300px; overflow-y: auto" input="edit-notes-content"></trix-editor>
+                        <input id="create_notes_content" placeholder="Lorem Ipsum" style="width: -webkit-fill-available" type="hidden" name="create_notes_content" required>
+                        <trix-editor style="max-height: 300px; overflow-y: auto" input="create_notes_content"></trix-editor>
                     </div>
                 </div>
                 <div class="col" style="text-align-last: end;">

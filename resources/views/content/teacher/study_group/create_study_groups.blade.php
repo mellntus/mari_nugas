@@ -12,7 +12,8 @@
     max-height: 600px;
     overflow-y: auto">
         <div class="teacher-create-study-groups-square" style="background: #F0F0F0; padding: 5%">
-            <form action="/teacher/study-groups/create" method="post">
+            <form action="{{ url('/teacher/study_groups/create') }}" method="POST">
+                @csrf
                 <div class="row teacher-create-study-groups-data py-2">
                     <div class="col-3">
                         <h5>Title</h5>
