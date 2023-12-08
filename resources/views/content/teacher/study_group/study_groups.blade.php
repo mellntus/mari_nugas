@@ -20,24 +20,25 @@
             </thead>
             <tbody>
                 {{-- Foreach Here --}}
-            <tr>
-                <th scope="row"></th>
-                <td>Lorem Ipsum</td>
-                <td>12</td>
-                <td><a href="/teacher/study-groups/id/detail">View</a><span>
-            </tr>
-            <tr>
-                <th scope="row"></th>
-                <td>Lorem Ipsum</td>
-                <td>12</td>
-                <td><a href="/teacher/study-groups/id/detail">View</a><span>
-            </tr>
-            <tr>
-                <th scope="row"></th>
-                <td>Lorem Ipsum</td>
-                <td>12</td>
-                <td><a href="/teacher/study-groups/id/detail">View</a><span>
-            </tr>
+                @forelse ($list_groups as $group)
+                    <tr>
+                        <th scope="row"></th>
+                        <td>{{ $group->title }}</td>
+                        <td><strong>{{ $group->participant }}</strong></td>
+                        <td>
+                            <div class="d-flex">
+                                <a href={{ url('/teacher/study-groups/'.$group->uid.'/detail') }}>View</a>
+                                <a href={{ url('/teacher/study-groups/'.$group->uid.'/edit') }}>Edit</a>
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <div class="alert alert-danger">
+                            Data group belum ditemukan.
+                        </div>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

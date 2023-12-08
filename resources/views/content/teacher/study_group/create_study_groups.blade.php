@@ -18,7 +18,7 @@
                         <h5>Title</h5>
                     </div>
                     <div class="col-9">
-                        <input type="text" id="create-study-groups-title" name="edit-notes-title" style="width: -webkit-fill-available" required>
+                        <input type="text" id="create_study_groups_title" name="create_study_groups_title" style="width: -webkit-fill-available" required>
                     </div>
                 </div>
                 <div class="row teacher-create-study-groups-data py-2">
@@ -26,7 +26,7 @@
                         <h5>Description</h5>
                     </div>
                     <div class="col-9">
-                        <textarea name="create-study-groups-description" id="create-study-groups-description" style="width: -webkit-fill-available; max-height: 200px"></textarea>
+                        <textarea name="create_study_groups_description" id="create_study_groups_description" style="width: -webkit-fill-available; max-height: 200px"></textarea>
                     </div>
                 </div>
                 <div class="col" style="text-align-last: end;">
