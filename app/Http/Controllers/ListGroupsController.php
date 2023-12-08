@@ -30,11 +30,12 @@ class ListGroupsController extends Controller
 
         // Check current data
         if ($groups->exists()) {
+            $groups = $groups->get();
             // Get all detail participants
             for ($count = 1; $count <= count($groups); $count++) {
                 $index = $count - 1;
                 $current_groups_participant = ListGroups::where('group_id', $groups[$index]->group_id);
-                $groups[$index]['total_participant'] = count($current_groups_participant);
+                $groups[$index]['total_participant'] = count($current_groups_participant->get());
             }
         };
 
@@ -91,11 +92,12 @@ class ListGroupsController extends Controller
 
         // Check if the data exist or not
         if ($list_groups->exists()) {
+            $list_groups = $list_groups->get();
             // Get all detail participants
             for ($count = 1; $count <= count($list_groups); $count++) {
                 $index = $count - 1;
                 $current_groups_participant = ListGroups::where('group_id', $list_groups[$index]->group_id);
-                $list_groups[$index]['total_participant'] = count($current_groups_participant);
+                $list_groups[$index]['total_participant'] = count($current_groups_participant->get());
             }
         }
 
@@ -133,16 +135,12 @@ class ListGroupsController extends Controller
         $utility = new Utility();
 
         // Set data to api
-        try {
-            DetailGroups::create([
-                'uid' => $utility->get_uuid(),
-                'title' => $request->create_study_groups_title,
-                'description' => $request->create_study_groups_description,
-                'owner_id' => $data->uid
-            ]);
-        } catch (\Throwable $th) {
-            return redirect()->route('list_group.index_teacher')->with('error', 'Gagal membuat group');
-        }
+        DetailGroups::create([
+            'uid' => $utility->get_uuid(),
+            'title' => $request->create_study_groups_title,
+            'description' => $request->create_study_groups_description,
+            'owner_id' => $data->uid
+        ]);
 
         return redirect()->route('list_group.index_teacher')->with('success', 'Sukses membuat group');
     }

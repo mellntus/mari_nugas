@@ -16,8 +16,7 @@ return new class extends Migration
             $table->string('uid')->unique();
             $table->string('title');
             $table->string('description');
-            $table->timestamp('created_at')
-                ->useCurrent()->useCurrentOnUpdate();
+            $table->timestamps();
             $table->string('owner_id');
         });
     }

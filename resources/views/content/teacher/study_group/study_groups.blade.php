@@ -24,11 +24,11 @@
                     <tr>
                         <th scope="row"></th>
                         <td>{{ $group->title }}</td>
-                        <td><strong>{{ $group->participant }}</strong></td>
+                        <td><strong>{{ $group->total_participant }}</strong></td>
                         <td>
-                            <div class="d-flex">
-                                <a href={{ url('/teacher/study-groups/'.$group->uid.'/detail') }}>View</a>
-                                <a href={{ url('/teacher/study-groups/'.$group->uid.'/edit') }}>Edit</a>
+                            <div>
+                                <a href={{ url('/teacher/study_groups/'.$group->uid.'/detail') }}>View</a>       
+                                <a href={{ url('/teacher/study_groups/'.$group->uid.'/edit') }}>Edit</a>
                             </div>
                         </td>
                     </tr>
@@ -41,5 +41,18 @@
                 @endforelse
             </tbody>
         </table>
+        @if (session()->has('success'))
+            <div class="alert alert-success  fade show" role="alert" style="display: flex; justify-content: space-between">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        @if (session()->has('error'))
+            <div class="alert alert-danger fade show" role="alert" style="display: flex; justify-content: space-between">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
     </div>
 @endsection

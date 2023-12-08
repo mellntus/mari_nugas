@@ -27,7 +27,7 @@
                 <h6><strong>TAG</strong></h6>
             </div>
             <div class="tag-input mx-3">
-                <input type="text" id="invite_student_tags" name="invite_student_tags">
+                <input type="text" id="invite_student_tags" name="invite_student_tags" required>
             </div>
             <div class="tag-button">
                 <button class="btn btn-success" type="submit">ADD</button>
