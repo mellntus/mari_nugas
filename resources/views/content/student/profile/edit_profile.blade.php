@@ -14,6 +14,7 @@
         <div class="profile-square" style="background: #F0F0F0; padding: 5%">
             <form action="{{ url('/profile/update') }}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="row profile-detail py-2">
                     <div class="col-3">
                         <h4>EMAIL</h4>
