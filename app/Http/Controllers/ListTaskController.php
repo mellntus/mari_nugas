@@ -9,7 +9,6 @@ use App\Models\ListGroups;
 use App\Utility\Utility;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Response;
 
 class ListTaskController extends Controller
 {
@@ -38,7 +37,7 @@ class ListTaskController extends Controller
             $index = $count - 1;
             // Detail task
             $detail_task = DetailTask::with('group')
-                ->where('group_id', $groups[$index]->uid)
+                ->where('group_id', $groups[$index]->group_id)
                 ->get();
 
             // Check status submitted assignment
@@ -47,7 +46,7 @@ class ListTaskController extends Controller
                 // Submitted task
                 $submitted_task = ListTask::where('user_id', $data->uid)
                     ->where('task_id', $detail_task[$index_submit]->uid)
-                    ->get();
+                    ->first();
                 $detail_task[$index_submit]['status'] = $submitted_task;
             }
 
@@ -79,8 +78,8 @@ class ListTaskController extends Controller
             ->where('user_id', $data->uid);
 
         // Check data assignment
-        if (!$detail_assignment->exists() || !$current_assignment->exists()) {
-            return redirect()->route('list_assignment.index_student')->with(['error', 'Detail assignment tidak ditemukan']);
+        if (!$detail_assignment->exists()) {
+            return back()->with(['error' => 'Detail assignment tidak ditemukan']);
         }
 
         $detail_assignment = $detail_assignment->first();
@@ -111,8 +110,8 @@ class ListTaskController extends Controller
             ->where('user_id', $data->uid);
 
         // Check data assignment
-        if (!$detail_assignment->exists() || !$current_assignment->exists()) {
-            return redirect()->route('list_assignment.index_student')->with(['error', 'Detail assignment tidak ditemukan']);
+        if (!$detail_assignment->exists()) {
+            return back()->with(['error' => 'Detail assignment tidak ditemukan']);
         }
 
         $detail_assignment = $detail_assignment->first();
@@ -126,7 +125,7 @@ class ListTaskController extends Controller
     /**
      * Student - Submit the assignment
      */
-    public function update_assignment_student(Request $request, $id)
+    public function submit_assignment_student(Request $request, $id)
     {
         // Get from current session
         $data = Auth::user();
@@ -137,26 +136,30 @@ class ListTaskController extends Controller
         }
 
         $this->validate($request, [
-            'student_assignment_file' => 'required|mimes:pdf|max:10000'
+            'student_assignment_file' => 'required|mimes:pdf,doc,docx|max:10000'
         ]);
 
         // Check assignment assignment
         $is_submit = ListTask::where('user_id', $data->uid)
             ->where('task_id', $id);
         if ($is_submit->exists()) {
-            return redirect()->route('list_assignment.index_student')->with(['error', 'User telah menyelesaikan tugas']);
+            return back()->with(['error' => 'User telah menyelesaikan tugas']);
         }
+
+
+        $file = $request->file('student_assignment_file');
+        $file->storeAs('public/assignment', $file->hashName());
 
         $utility = new Utility();
 
         ListTask::create([
             'task_id' => $id,
             'user_id' => $data->uid,
-            'file_submitted' => $request->student_assignment_file,
+            'file_submitted' => $file->hashName(),
             'submitted_at' => $utility->get_current_time()
         ]);
 
-        return redirect()->route('list_assignment.index_student')->with(['success', 'Berhasil mengumpulkan tugas']);
+        return redirect()->route('list_assignment.index_student')->with(['success' => 'Berhasil mengumpulkan tugas']);
     }
 
 
@@ -251,7 +254,7 @@ class ListTaskController extends Controller
             'task_sample' => $sample_file
         ]);
 
-        return redirect()->route('list_assignment.index_teacher')->with('success', 'Berhasil membuat assignment');
+        return redirect()->route('list_assignment.index_teacher')->with(['success' => 'Berhasil membuat assignment']);
     }
 
     /**
@@ -272,7 +275,7 @@ class ListTaskController extends Controller
 
         // Check data assignment
         if (!$detail_assignment->exists()) {
-            return redirect()->route('list_assignment.index_student')->with(['error', 'Detail assignment tidak ditemukan']);
+            return back()->with(['error' => 'Detail assignment tidak ditemukan']);
         }
 
         return view("content.teacher.assignment.detail_assignment", [
@@ -298,7 +301,7 @@ class ListTaskController extends Controller
         // Check if there is assignment file
         if ($request->hasFile('teacher_assignment_file')) {
             $this->validate($request, [
-                'teacher_assignment_file' => 'required|mimes:pdf|max:10000',
+                'teacher_assignment_file' => 'required|mimes:pdf,doc,docx|max:10000',
             ]);
             $file = $request->file('teacher_assignment_file');
             $file->storeAs('public/assignment', $file->getClientOriginalName());
@@ -310,7 +313,7 @@ class ListTaskController extends Controller
 
         // Check data assignment
         if (!$detail_assignment->exists()) {
-            return redirect()->route('list_assignment.index_teacher')->with(['error', 'Detail assignment tidak ditemukan']);
+            return back()->with(['error' => 'Detail assignment tidak ditemukan']);
         }
 
         $detail_assignment = $detail_assignment->first();
@@ -330,7 +333,7 @@ class ListTaskController extends Controller
             ]);
         }
 
-        return redirect()->route('list_assignment.index_teacher')->with(['success', 'Berhasil mengubah tugas']);
+        return redirect()->route('list_assignment.index_teacher')->with(['success' => 'Berhasil mengubah tugas']);
     }
 
     public function status_assignment_teacher($id)
@@ -344,7 +347,7 @@ class ListTaskController extends Controller
         }
 
         // Get all groups participant
-        $participant = ListTask::with('user')->where('task_id', $id);
+        $participant = ListTask::with('user')->where('task_id', $id)->get();
 
         return view("content.teacher.assignment.status_assignment", [
             'participants' => $participant
@@ -365,18 +368,18 @@ class ListTaskController extends Controller
         $assignment = DetailTask::where('uid', $id);
 
         if (!$assignment->exists()) {
-            return redirect()->route('list_assignment.index_teacher')->with('error', 'Gagal menghapus assignment');
+            return back()->with(['error' => 'Gagal menghapus assignment']);
         }
 
         //delete post
         $assignment->delete();
-        return redirect()->route('list_assignment.index_teacher')->with('success', 'Berhasil menghapus assignment');
+        return redirect()->route('list_assignment.index_teacher')->with(['success' => 'Berhasil menghapus assignment']);
     }
 
     public function show_file_submitted($task_id, $participant_id)
     {
-        $pdf = ListTask::where(['task_id', $task_id])
-            ->where('participant_id', $participant_id)->first();
+        $pdf = ListTask::where('task_id', $task_id)
+            ->where('user_id', $participant_id)->first();
 
         // $response = Response::make($pdf->file_submitted, 200);
         // $response->header('Content-Type', 'application/pdf');
@@ -400,8 +403,8 @@ class ListTaskController extends Controller
 
     public function download_submitted($task_id, $participant_id)
     {
-        $pdf = ListTask::where(['task_id', $task_id])
-            ->where('participant_id', $participant_id)->first();
+        $pdf = ListTask::where('task_id', $task_id)
+            ->where('user_id', $participant_id)->first();
 
         // $response = Response::make($pdf->file_submitted, 200);
         // $response->header('Content-Type', 'application/pdf');

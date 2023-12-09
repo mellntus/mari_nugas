@@ -20,8 +20,8 @@
                 @forelse ($participants as $participant)
                     <tr>
                         <th scope="row"></th>
-                        <td>{{ $participant->user->name }}</td>
-                        <td><a href="{{ url('/teacher/assignment/'.$participant->task_id.'/submitted/'.$participant->participant_id.'/download') }}">
+                        <td>{{ $participant->user->username }}</td>
+                        <td><a href="{{ url('/teacher/assignment/'.$participant->task_id.'/submitted/'.$participant->user_id.'/download') }}">
                             {{ $participant->file_submitted }}
                         </a></td>
                         <td>{{ $participant->submitted_at }}</td>

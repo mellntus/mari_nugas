@@ -24,10 +24,10 @@
                         <td>{{ $group->total_participant }}</td>
                         <td>
                             <div class="d-flex">
-                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ url('/student/study-groups/'.$group->group_id.'/left') }}" method="POST">
+                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ url('/student/study_groups/'.$group->group_id.'/left') }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-danger" type="submit">Delete</button></a>
+                                    <button class="btn btn-danger" type="submit">LEFT</button></a>
                                 </form>    
                             </div>
                         </td>                        
@@ -42,5 +42,18 @@
                 @endforelse
             </tbody>
         </table>
+        @if (session()->has('success'))
+            <div class="alert alert-success  fade show" role="alert" style="display: flex; justify-content: space-between">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        @if (session()->has('error'))
+            <div class="alert alert-danger fade show" role="alert" style="display: flex; justify-content: space-between">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
     </div>
 @endsection

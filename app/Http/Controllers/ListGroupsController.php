@@ -58,13 +58,11 @@ class ListGroupsController extends Controller
         }
 
         // Get detail list groups
-        $current_groups = ListGroups::where([
-            "participant_id", $data->uid,
-            "group_id", $id
-        ]);
+        $current_groups = ListGroups::where("participant_id", $data->uid)
+            ->where("group_id", $id);
 
         if (!$current_groups->exists()) {
-            return redirect()->route('list_group.index_student')->with(['error' => 'Terjadi kesalahan ketika hapus data']);
+            return back()->with(['error' => 'Terjadi kesalahan ketika hapus data']);
         }
 
         // Delete from joined groups
@@ -171,7 +169,8 @@ class ListGroupsController extends Controller
         }
 
         // Check if user already inside the group or not
-        $participant = ListGroups::where('participant_id', $check_user->uid);
+        $participant = ListGroups::where('participant_id', $check_user->uid)
+            ->where('group_id', $id);
 
         // Validate
         if ($participant->exists()) {

@@ -20,12 +20,12 @@
             <tbody>
                 {{-- Foreach Here --}}
                 @forelse ($groups as $group)
-                    @forelse ($group['task'] as $task)    
+                    @forelse ($group['task'] as $task)  
                         <tr>
                             <th scope="row"></th>
                             <td>{{ $task->title }}</td>
                             <td>{{ $task->group->title }}</td>
-                            @if (empty($task->status))
+                            @if (empty($task->status->file_submitted))
                                 <td style="background-color: red">
                                     <strong>Not Submitted</strong>
                                 </td>
@@ -35,12 +35,12 @@
                                 </td>
                             @endif
                             </td>
-                            <td>{{ $assignment->task->due_date }}</td>                        
+                            <td>{{ $task->due_date }}</td>                        
                             <td>
-                                <div class="d-flex">
-                                    <a href={{ url('/student/assignment/'.$assignment->task->uid.'/detail') }}>View</a>
-                                    <a href={{ url('/student/assignment/'.$assignment->task->uid.'/prepare') }}>Submit</a>
-                                </div>
+                                <a href={{ url('/student/assignment/'.$task->uid.'/detail') }}>View</a>
+                                @if (empty($task->status->file_submitted))
+                                    <a href={{ url('/student/assignment/'.$task->uid.'/prepare') }}>Submit</a>
+                                @endif
                             </td>                        
                         </tr>
                     @empty
@@ -54,5 +54,18 @@
                 @endforelse
             </tbody>
         </table>
+        @if (session()->has('success'))
+            <div class="alert alert-success  fade show" role="alert" style="display: flex; justify-content: space-between">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        @if (session()->has('error'))
+            <div class="alert alert-danger fade show" role="alert" style="display: flex; justify-content: space-between">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
     </div>
 @endsection

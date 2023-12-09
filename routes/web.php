@@ -68,22 +68,22 @@ Route::group(['middleware' => ['auth']], (function () { #
 // Student Routes ---------------------------------------------------------------------------
 Route::group(['middleware' => ['auth']], (function () {
     // Assignment
-    Route::get('/student/assignment', [ListTaskController::class, 'index_student'])->name('list_assignment.index_student'); ##
-    Route::get('/student/assignment/{id}/detail', [ListTaskController::class, 'show_assignment_student'])->name('list_assignment.show_assignment_student'); ##
-    Route::get('/student/assignment/{id}/prepare', [ListTaskController::class, 'prepare_assignment_student'])->name('list_assignment.prepare_assignment_student'); ##
-    Route::put('/student/assignment/{id}/submit', [ListTaskController::class, 'submit_assignment_student'])->name('list_assignment.submit_assignment_student'); ##
+    Route::get('/student/assignment', [ListTaskController::class, 'index_student'])->name('list_assignment.index_student'); #
+    Route::get('/student/assignment/{id}/detail', [ListTaskController::class, 'show_assignment_student'])->name('list_assignment.show_assignment_student'); #
+    Route::get('/student/assignment/{id}/prepare', [ListTaskController::class, 'prepare_assignment_student'])->name('list_assignment.prepare_assignment_student'); #
+    Route::post('/student/assignment/{id}/submit', [ListTaskController::class, 'submit_assignment_student'])->name('list_assignment.submit_assignment_student'); #
 
     // Study Groups
-    Route::get('/student/study_groups', [ListGroupsController::class, 'index_student'])->name('list_group.index_student'); ##
-    Route::delete('/student/study_groups/{id}/left', [ListGroupsController::class, 'left_group_student'])->name('list_group.left_group_student'); ##
+    Route::get('/student/study_groups', [ListGroupsController::class, 'index_student'])->name('list_group.index_student'); #
+    Route::delete('/student/study_groups/{id}/left', [ListGroupsController::class, 'left_group_student'])->name('list_group.left_group_student'); #
 
     // Download File
-    Route::get('/student/assignment/sample/{id}/download', [ListTaskController::class, 'download_sample'])->name('list_assignment.download_sample'); ##
-    Route::get('/student/assignment/{task_id}/submitted/{participant_id}/download', [ListTaskController::class, 'download_submitted'])->name('list_assignment.download_submitted'); ##
+    Route::get('/student/assignment/sample/{id}/download', [ListTaskController::class, 'download_sample'])->name('list_assignment.download_sample'); #
+    Route::get('/student/assignment/{task_id}/submitted/{participant_id}/download', [ListTaskController::class, 'download_submitted'])->name('list_assignment.download_submitted'); #
 
     // Show File
-    Route::get('/student/assignment/sample/{id}/show', [ListTaskController::class, 'show_file_sample'])->name('list_assignment.show_file_sample'); ##
-    Route::get('/student/assignment/{task_id}/submitted/{participant_id}/show', [ListTaskController::class, 'show_file_submitted'])->name('list_assignment.show_file_submitted'); ##
+    Route::get('/student/assignment/sample/{id}/show', [ListTaskController::class, 'show_file_sample'])->name('list_assignment.show_file_sample'); #
+    Route::get('/student/assignment/{task_id}/submitted/{participant_id}/show', [ListTaskController::class, 'show_file_submitted'])->name('list_assignment.show_file_submitted'); #
 }));
 
 // Teacher Routes ---------------------------------------------------------------------------
@@ -94,7 +94,7 @@ Route::group(['middleware' => ['auth']], (function () {
     Route::post('/teacher/assignment/create', [ListTaskController::class, 'create_assignment_teacher'])->name('list_assignment.create_assignment_teacher'); #
     Route::get('/teacher/assignment/{id}/detail', [ListTaskController::class, 'show_assignment_teacher'])->name('list_assignment.show_assignment_teacher'); #
     Route::put('/teacher/assignment/{id}/update', [ListTaskController::class, 'update_assignment_teacher'])->name('list_assignment.update_assignment_teacher'); #
-    Route::get('/teacher/assignment/{id}/status', [ListTaskController::class, 'status_assignment_teacher'])->name('list_assignment.status_assignment_teacher'); ##
+    Route::get('/teacher/assignment/{id}/status', [ListTaskController::class, 'status_assignment_teacher'])->name('list_assignment.status_assignment_teacher'); #
     Route::get('/teacher/assignment/{id}/delete', [ListTaskController::class, 'delete_assignment_teacher'])->name('list_assignment.delete_assignment_teacher'); #
 
     // Study Groups
