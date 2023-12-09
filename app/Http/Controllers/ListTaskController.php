@@ -225,6 +225,13 @@ class ListTaskController extends Controller
      */
     public function create_assignment_teacher(Request $request)
     {
+        $request->validate([
+            'group_id' => 'required',
+            'title' => 'required',
+            'description' => 'required',
+            'due_date' => 'required'
+        ]);
+
         // Get from current session
         $data = Auth::user();
 
@@ -236,6 +243,9 @@ class ListTaskController extends Controller
         $sample_file = null;
         // Save file to local copy
         if ($request->hasFile('teacher_assignment_file')) {
+            $request->validate([
+                'teacher_assignment_file' => 'mimes:pdf,doc,docx|max:10000'
+            ]);
             $sample_file = $request->file('teacher_assignment_file');
             $sample_file->storeAs('public/assignment', $sample_file->hashName());
             $sample_file = $sample_file->hashName();
@@ -288,6 +298,12 @@ class ListTaskController extends Controller
      */
     public function update_assignment_teacher(Request $request, $id)
     {
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'due_date' => 'required'
+        ]);
+
         // Get from current session
         $data = Auth::user();
 

@@ -122,6 +122,11 @@ class ListGroupsController extends Controller
      */
     public function create_study_groups_teacher(Request $request)
     {
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+        ]);
+
         // Get from current session
         $data = Auth::user();
 
@@ -145,6 +150,10 @@ class ListGroupsController extends Controller
 
     public function invite_study_groups_teacher(Request $request, $id)
     {
+        $request->validate([
+            'invite_student_tags' => 'required'
+        ]);
+
         // Get from current session
         $data = Auth::user();
 
@@ -249,6 +258,11 @@ class ListGroupsController extends Controller
      */
     public function update_study_groups_teacher(Request $request, $id)
     {
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required'
+        ]);
+
         // Get from current session
         $data = Auth::user();
 
@@ -280,6 +294,10 @@ class ListGroupsController extends Controller
      */
     public function teacher_kick_student(Request $request, $id)
     {
+        $request->validate([
+            'group_id' => 'required'
+        ]);
+
         // Get from current session
         $data = Auth::user();
 
