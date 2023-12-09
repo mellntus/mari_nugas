@@ -13,7 +13,7 @@ class ListGroups extends Model
 
     protected $fillable = [
         'group_id',
-        'participant_id',
+        'participant_id'
     ];
 
     public function participant()

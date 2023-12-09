@@ -21,7 +21,8 @@
             <p style="margin: 0">{{ $detail_group->description }}</p>
         </div>
     </div>
-    <form action="{{ url('/teacher/study_groups/'.$detail_group->uid.'/invite') }}">
+    <form action="{{ url('/teacher/study_groups/'.$detail_group->uid.'/invite') }}" method="POST">
+        @csrf
         <div class="d-flex study-groups-invite"  style="align-items: center">
             <div class="tag-title">
                 <h6><strong>TAG</strong></h6>

@@ -30,6 +30,12 @@ class NotesController extends Controller
      */
     public function create(Request $request)
     {
+        // Check the out
+        $request->validate([
+            'create_notes_title' => 'required',
+            'create_notes_content' => 'required'
+        ]);
+
         // Get from current session
         $data = Auth::user();
 
@@ -81,6 +87,11 @@ class NotesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Check the out
+        $request->validate([
+            'edit_notes_title' => 'required',
+            'edit_notes_content' => 'required'
+        ]);
 
         // Get detail notes
         $notes = Notes::where('uid', $id);

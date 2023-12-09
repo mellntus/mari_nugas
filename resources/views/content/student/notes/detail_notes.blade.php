@@ -19,7 +19,7 @@
                         <h4>TITLE</h4>
                     </div>
                     <div class="col-9">
-                        <input type="text" id="edit_notes_title" name="edit_notes_title" style="width: -webkit-fill-available" value="{{ $note->title }}" required>
+                        <input type="text" id="edit_notes_title" @error('edit_notes_title') is-invalid @enderror name="edit_notes_title" style="width: -webkit-fill-available" value="{{ $note->title }}" required>
                     </div>
                 </div>
                 <div class="row notes-detail py-2">
@@ -27,7 +27,7 @@
                         <h4>CONTENT</h4>
                     </div>
                     <div class="col-9">
-                        <input id="edit_notes_content" value="{{ $note->description }}" style="width: -webkit-fill-available" type="hidden" name="edit_notes_content" required>
+                        <input id="edit_notes_content" value="{{ $note->description }}"  @error('edit_notes_content') is-invalid @enderror style="width: -webkit-fill-available" type="hidden" name="edit_notes_content" required>
                         <trix-editor style="max-height: 300px; overflow-y: auto" input="edit_notes_content"></trix-editor>
                     </div>
                 </div>
@@ -35,6 +35,17 @@
                     <button class="btn btn-success" type="submit">SAVE</button>
                 </div>
             </form>
+            <!-- error message untuk title -->
+            @error('edit_notes_title')
+                <div class="alert alert-danger mt-2">
+                    {{ $message }}
+                </div>
+            @enderror
+            @error('edit_notes_content')
+                <div class="alert alert-danger mt-2">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
     </div>
 @endsection

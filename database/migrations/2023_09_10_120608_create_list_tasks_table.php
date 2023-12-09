@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('task_id');
             $table->string('user_id');
-            $table->binary('file_submitted')
+            $table->string('file_submitted')
                 ->nullable();
             $table->timestamp('submitted_at')
                 ->nullable();

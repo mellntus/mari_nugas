@@ -18,7 +18,7 @@
                         <h4>TITLE</h4>
                     </div>
                     <div class="col-9">
-                        <input type="text" id="create_notes_title" name="create_notes_title" style="width: -webkit-fill-available" required>
+                        <input type="text" id="create_notes_title" name="create_notes_title" @error('create_notes_title') is-invalid @enderror style="width: -webkit-fill-available" required>
                     </div>
                 </div>
                 <div class="row notes-create py-2">
@@ -26,7 +26,7 @@
                         <h4>CONTENT</h4>
                     </div>
                     <div class="col-9">
-                        <input id="create_notes_content" placeholder="Lorem Ipsum" style="width: -webkit-fill-available" type="hidden" name="create_notes_content" required>
+                        <input id="create_notes_content" placeholder="Lorem Ipsum" @error('create_notes_content') is-invalid @enderror style="width: -webkit-fill-available" type="hidden" name="create_notes_content" required>
                         <trix-editor style="max-height: 300px; overflow-y: auto" input="create_notes_content"></trix-editor>
                     </div>
                 </div>
@@ -34,6 +34,17 @@
                     <button class="btn btn-success" type="submit">SAVE</button>
                 </div>
             </form>
+            <!-- error message untuk title -->
+            @error('create_notes_title')
+                <div class="alert alert-danger mt-2">
+                    {{ $message }}
+                </div>
+            @enderror
+            @error('create_notes_content')
+                <div class="alert alert-danger mt-2">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
     </div>
 @endsection
