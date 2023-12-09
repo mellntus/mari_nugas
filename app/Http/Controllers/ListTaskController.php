@@ -152,13 +152,23 @@ class ListTaskController extends Controller
         // Get all assignment data
         $assignment = DetailTask::with(['user', 'group'])->get();
 
+        // Get participant and submitted person inside group
+        for ($count = 1; $count <= count($assignment); $count++) {
+            // Group participant
+            $index = $count - 1;
+            $current_groups_participant = ListGroups::where('group_id', $assignment[$index]->group->uid);
+            $assignment[$index]['total_participant'] = count($current_groups_participant->get());
+
+            // Submitted participant
+            $current_submitted_participant = ListTask::where('group_id', $assignment[$index]->group->uid);
+            $assignment[$index]['submitted_participant'] = count($current_submitted_participant->get());
+        }
+
+
         // Default student assignment page as dashboard
         return view('content.' . $data->roles->name . '.assignment.assignment', [
             'assignments' => $assignment
         ]);
-
-        // Default student assignment page as dashboard
-        return view('content.teacher.assignment.assignment');
     }
 
     public function prepare_assignment_teacher()
@@ -193,9 +203,12 @@ class ListTaskController extends Controller
             return redirect()->route('list_assignment.index_student');
         }
 
+        $sample_file = null;
         // Save file to local copy
-        $sample_file = $request->file('teacher_assignment_file');
-        $sample_file->storeAs('public/blogs', $sample_file);
+        if ($request->hasFile('teacher_assignment_file')) {
+            $sample_file = $request->file('teacher_assignment_file');
+            $sample_file->storeAs('public/assignment', $sample_file->hashName());
+        }
 
         $utility = new Utility();
 
@@ -203,14 +216,14 @@ class ListTaskController extends Controller
         DetailTask::create([
             'uid' => $utility->get_uuid(),
             'owner_id' => $data->uid,
-            'group_id' => $request->create_assignment_study,
+            'group_id' => $request->create_assignment_study_groups,
             'title' => $request->create_assignment_title,
             'description' => $request->create_assignment_description,
             'due_date' => $request->create_assignment_date,
-            'task_sample' => $sample_file
+            'task_sample' => $sample_file->hashName()
         ]);
 
-        return view("content.teacher.assignment.submit_assignment");
+        return redirect()->route('list_assignment.index_teacher')->with('success', 'Berhasil membuat assignment');
     }
 
     /**
@@ -257,8 +270,10 @@ class ListTaskController extends Controller
         // Check if there is assignment file
         if ($request->hasFile('teacher_assignment_file')) {
             $this->validate($request, [
-                'teacher_assignment_file' => 'mimes:pdf|max:10000',
+                'teacher_assignment_file' => 'required|mimes:pdf|max:10000',
             ]);
+            $file = $request->file('teacher_assignment_file');
+            $file->storeAs('public/assignment', $file->getClientOriginalName());
             $input_file = True;
         }
 
@@ -277,7 +292,7 @@ class ListTaskController extends Controller
                 'title' => $request->edit_assignment_title,
                 'description' => $request->edit_assignment_description,
                 'due_date' => $request->edit_assignment_date,
-                'task_sample' => $request->file('teacher_assignment_file')
+                'task_sample' => $file->getClientOriginalName()
             ]);
         } else {
             $detail_assignment->update([
@@ -313,22 +328,24 @@ class ListTaskController extends Controller
         $pdf = ListTask::where(['task_id', $task_id])
             ->where('participant_id', $participant_id)->first();
 
-        $response = Response::make($pdf->file_submitted, 200);
-        $response->header('Content-Type', 'application/pdf');
-        $response->header('Content-Disposition', 'inline; filename="' . $pdf->image . '"');
+        // $response = Response::make($pdf->file_submitted, 200);
+        // $response->header('Content-Type', 'application/pdf');
+        // $response->header('Content-Disposition', 'inline; filename="' . $pdf->file_submitted . '"');
 
-        return $response;
+        // return $response;
+        return response()->download(storage_path('app/public/assignment/' . $pdf->file_submitted));
     }
 
     public function show_file_sample($id)
     {
-        $pdf = DetailTask::find($id);
+        $pdf = DetailTask::where('uid', $id)->first();
 
-        $response = Response::make($pdf->task_sample, 200);
-        $response->header('Content-Type', 'application/pdf');
-        $response->header('Content-Disposition', 'inline; filename="' . $pdf->image . '"');
+        // $response = Response::make($pdf->task_sample, 200);
+        // $response->header('Content-Type', 'application/pdf');
+        // $response->header('Content-Disposition', 'inline; filename="' . $pdf->task_sample . '"');
 
-        return $response;
+        // return $response;
+        return response()->download(storage_path('app/public/assignment/' . $pdf->task_sample));
     }
 
     public function download_submitted($task_id, $participant_id)
@@ -336,21 +353,25 @@ class ListTaskController extends Controller
         $pdf = ListTask::where(['task_id', $task_id])
             ->where('participant_id', $participant_id)->first();
 
-        $response = Response::make($pdf->file_submitted, 200);
-        $response->header('Content-Type', 'application/pdf');
-        $response->header('Content-Disposition', 'attachment; filename="' . $pdf->image . '"');
+        // $response = Response::make($pdf->file_submitted, 200);
+        // $response->header('Content-Type', 'application/pdf');
+        // $response->header('Content-Disposition', 'attachment; filename="' . $pdf->file_submitted . '"');
 
-        return $response;
+        // return $response;
+
+        return response()->download(storage_path('app/public/assignment/' . $pdf->file_submitted));
     }
 
     public function download_sample($id)
     {
-        $pdf = DetailTask::find($id);
+        $pdf = DetailTask::where('uid', $id)->first();
 
-        $response = Response::make($pdf->task_sample, 200);
-        $response->header('Content-Type', 'application/pdf');
-        $response->header('Content-Disposition', 'attachment; filename="' . $pdf->image . '"');
+        // $response = Response::make($pdf->task_sample, 200);
+        // $response->header('Content-Type', 'application/pdf');
+        // $response->header('Content-Disposition', 'attachment; filename="' . $pdf->task_sample . '"');
 
-        return $response;
+        // return $response;
+
+        return response()->download(storage_path('app/public/assignment/' . $pdf->task_sample));
     }
 }

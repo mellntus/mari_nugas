@@ -10,6 +10,8 @@ class Roles extends Model
 {
     use HasFactory;
 
+    // INSERT INTO `roles` (`id`, `name`) VALUES ('1', 'student'), ('2', 'teacher');
+
     protected $fillable = [
         'name'
     ];

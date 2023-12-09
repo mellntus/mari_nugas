@@ -25,13 +25,11 @@
                     <tr>
                         <th scope="row"></th>
                         <td>{{ $assignment->title }}</td>
-                        <td><strong>{{ $assignment->rate_submitted }}</strong></td>
+                        <td><strong>{{ $assignment->submitted_participant }}/{{ $assignment->total_participant }}</strong></td>
                         <td>{{ $assignment->due_date }}</td>
                         <td>
-                            <div class="d-flex">
-                                <a href={{ url('/teacher/assignment/'.$assignment->uid.'/detail') }}>View</a>
-                                <a href={{ url('/teacher/assignment/'.$assignment->uid.'/status') }}>Status</a>
-                            </div>
+                            <a href={{ url('/teacher/assignment/'.$assignment->uid.'/detail') }}>View</a>
+                            <a href={{ url('/teacher/assignment/'.$assignment->uid.'/status') }}>Status</a>
                         </td>
                     </tr>
                 @empty
@@ -41,27 +39,6 @@
                         </div>
                     </tr>
                 @endforelse
-            <tr>
-                <th scope="row"></th>
-                <td>Lorem Ipsum</td>
-                <td><strong>43/50</strong></td>
-                <td>2023-12-09</td>
-                <td><a href="/teacher/assignment/id/detail">View</a><span>          <a href="/teacher/assignment/id/status">Status</a></span></td>
-            </tr>
-            <tr>
-                <th scope="row"></th>
-                <td>Dolored Lamu</td>
-                <td><strong>43/51</strong></td>
-                <td>2023-12-09</td>
-                <td><a href="/teacher/assignment/id/detail">View</a><span>          <a href="/teacher/assignment/id/status">Status</a></span></td>
-            </tr>
-            <tr>
-                <th scope="row"></th>
-                <td>Skuknu Rekmend</td>
-                <td><strong>43/52</strong></td>
-                <td>2023-12-09</td>
-                <td><a href="/teacher/assignment/id/detail">View</a><span>          <a href="/teacher/assignment/id/status">Status</a></span></td>
-            </tr>
             </tbody>
         </table>
         @if (session()->has('success'))

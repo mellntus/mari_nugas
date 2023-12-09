@@ -78,11 +78,11 @@ Route::group(['middleware' => ['auth']], (function () {
     Route::delete('/student/study_groups/{id}/left', [ListGroupsController::class, 'left_group_student'])->name('list_group.left_group_student'); ##
 
     // Download File
-    Route::get('/student/assignment/{task_id}/sample/{participant_id}/download', [ListTaskController::class, 'download_sample'])->name('list_assignment.download_sample'); ##
+    Route::get('/student/assignment/sample/{id}/download', [ListTaskController::class, 'download_sample'])->name('list_assignment.download_sample'); ##
     Route::get('/student/assignment/{task_id}/submitted/{participant_id}/download', [ListTaskController::class, 'download_submitted'])->name('list_assignment.download_submitted'); ##
 
     // Show File
-    Route::get('/student/assignment/{task_id}/sample/{participant_id}/show', [ListTaskController::class, 'show_file_sample'])->name('list_assignment.show_file_sample'); ##
+    Route::get('/student/assignment/sample/{id}/show', [ListTaskController::class, 'show_file_sample'])->name('list_assignment.show_file_sample'); ##
     Route::get('/student/assignment/{task_id}/submitted/{participant_id}/show', [ListTaskController::class, 'show_file_submitted'])->name('list_assignment.show_file_submitted'); ##
 }));
 
@@ -108,10 +108,12 @@ Route::group(['middleware' => ['auth']], (function () {
 
 
     // Download File
-    Route::get('/teacher/assignment/{task_id}/sample/{participant_id}/download', [ListTaskController::class, 'download_sample'])->name('list_assignment.download_sample'); ##
+    Route::get('/teacher/assignment/sample/{id}/download', [ListTaskController::class, 'download_sample'])->name('list_assignment.download_sample'); ##
+    Route::get('/teacher/assignment/{task_id}/submitted/{participant_id}/download', [ListTaskController::class, 'download_submitted'])->name('list_assignment.download_submitted'); ##
 
     // Show File
-    Route::get('/teacher/assignment/{task_id}/sample/{participant_id}/show', [ListTaskController::class, 'show_file_sample'])->name('list_assignment.show_file_sample'); ##
+    Route::get('/teacher/assignment/sample/{id}/show', [ListTaskController::class, 'show_file_sample'])->name('list_assignment.show_file_sample'); ##
+    Route::get('/teacher/assignment/{task_id}/submitted/{participant_id}/show', [ListTaskController::class, 'show_file_submitted'])->name('list_assignment.show_file_submitted'); ##
 }));
 
 // // Resource

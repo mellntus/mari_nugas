@@ -20,8 +20,7 @@ return new class extends Migration
             $table->text('description');
             $table->date('due_date');
             $table->timestamps();
-            $table->binary('task_sample')
-                ->nullable();
+            $table->string('task_sample');
         });
     }
 

@@ -12,7 +12,8 @@
     max-height: 600px;
     overflow-y: auto">
         <div class="teacher-create-assignment-square" style="background: #F0F0F0; padding: 5%">
-            <form action="/teacher/assignment/create" method="post">
+            <form action="/teacher/assignment/create" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="row teacher-create-assignment-data py-2">
                     <div class="col-3">
                         <h5>Title</h5>
@@ -42,7 +43,7 @@
                         <h5>Study Group</h5>
                     </div>
                     <div class="col-9">
-                        <select name="-" id="create_assignment_study_groups" name="create_assignment_study_groups" style="width: -webkit-fill-available" required>
+                        <select id="create_assignment_study_groups" name="create_assignment_study_groups" style="width: -webkit-fill-available" required>
                             @forelse ($list_groups as $group)
                                 <option value="{{ $group->uid }}">{{ $group->title }}</option>
                             @empty
@@ -57,9 +58,9 @@
                     </div>
                     <div class="col-9">
                         {{-- FILE --}}
-                        <input class="form-control @error('error-file') is-invalid @enderror" type="file"
-                        id="teacher_assignment_file" name="teacher_assignment_file" required>
-                        @error('error-file')
+                        <input class="form-control @error('teacher_assignment_file') is-invalid @enderror" type="file"
+                        id="teacher_assignment_file" name="teacher_assignment_file">
+                        @error('teacher_assignment_file')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>

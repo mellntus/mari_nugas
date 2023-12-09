@@ -12,7 +12,7 @@
     max-height: 600px;
     overflow-y: auto">
         <div class="teacher-detail-assignment-square" style="background: #F0F0F0; padding: 5%">
-            <form action="/teacher/assignment/id/update" method="post">
+            <form action="{{ url('/teacher/assignment/'.$assignment->uid.'/update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <input type="hidden" name="assignment-id">
@@ -48,7 +48,7 @@
                         @if (empty($assignment->task_sample))
                             -
                         @else    
-                            <a href="{{ url('/teacher/assignment/sample/'.$detail_assignment->uid.'/show') }}">
+                            <a href="{{ url('/teacher/assignment/sample/'.$assignment->uid.'/download') }}">
                                 File Sample
                             </a>
                         @endif
@@ -68,12 +68,12 @@
                     </div>
                     <div class="col-9">
                         {{-- FILE --}}
-                        <input class="form-control @error('error-file') is-invalid @enderror" type="file"
+                        <input class="form-control @error('teacher_assignment_file') is-invalid @enderror" type="file"
                         id="teacher_assignment_file" name="teacher_assignment_file">
-                        @error('error-file')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
+                        @error('teacher_assignment_file')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
                         @enderror
                     </div>
                 </div>
