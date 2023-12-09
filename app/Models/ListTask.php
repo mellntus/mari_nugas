@@ -15,7 +15,6 @@ class ListTask extends Model
     protected $fillable = [
         'task_id',
         'user_id',
-        'group_id',
         'file_submitted',
         'submitted_at'
     ];

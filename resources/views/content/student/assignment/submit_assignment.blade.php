@@ -14,7 +14,6 @@
         <div class="submit-assignment-square" style="background: #F0F0F0; padding: 5%">
             <form action="{{ url('/student/assignment/'.$detail_assignment->uid.'/submit') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                @method("PUT")
                 <div class="row submit-assignment-data py-2">
                     <div class="col-3">
                         <h5>Title</h5>
@@ -52,7 +51,7 @@
                         <h5>Status</h5>
                     </div>
                     <div class="col-9">
-                        <h5>: Submitted</h5>
+                        <h5>: Not Submitted</h5>
                     </div>
                 </div>
                 <div class="row submit-assignment-data py-2">

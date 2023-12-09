@@ -28,12 +28,35 @@ class ListTaskController extends Controller
             return redirect()->route('list_assignment.index_teacher');
         }
 
-        // Get all assignment data
-        $assignment = ListTask::with(['user', 'task', 'group'])->get();
+        // Get all joined groups
+        $groups = ListGroups::with(['group'])
+            ->where('participant_id', $data->uid)
+            ->get();
+
+        // Get all data assignment
+        for ($count = 1; $count <= count($groups); $count++) {
+            $index = $count - 1;
+            // Detail task
+            $detail_task = DetailTask::with('group')
+                ->where('group_id', $groups[$index]->uid)
+                ->get();
+
+            // Check status submitted assignment
+            for ($submit_count = 1; $submit_count <= count($groups); $submit_count++) {
+                $index_submit = $submit_count - 1;
+                // Submitted task
+                $submitted_task = ListTask::where('user_id', $data->uid)
+                    ->where('task_id', $detail_task[$index_submit]->uid)
+                    ->get();
+                $detail_task[$index_submit]['status'] = $submitted_task;
+            }
+
+            $groups[$index]['task'] = $detail_task;
+        }
 
         // Default student assignment page as dashboard
         return view('content.' . $data->roles->name . '.assignment.assignment', [
-            'assignments' => $assignment
+            'groups' => $groups
         ]);
     }
 
@@ -51,15 +74,16 @@ class ListTaskController extends Controller
         }
 
         // Get detail assignment
-        $detail_assignment = DetailTask::where('uid', $id);
-        $current_assignment = ListTask::where('task_id', $id);
+        $detail_assignment = DetailTask::with('group')->where('uid', $id);
+        $current_assignment = ListTask::where('task_id', $id)
+            ->where('user_id', $data->uid);
 
         // Check data assignment
         if (!$detail_assignment->exists() || !$current_assignment->exists()) {
             return redirect()->route('list_assignment.index_student')->with(['error', 'Detail assignment tidak ditemukan']);
         }
 
-        $detail_assignment = DetailTask::with(['user', 'group'])->where('uid', $id)->first();
+        $detail_assignment = $detail_assignment->first();
         $current_assignment = $current_assignment->first();
 
         return view("content.student.assignment.detail_assignment", [
@@ -82,14 +106,17 @@ class ListTaskController extends Controller
         }
 
         // Get detail assignment
-        $detail_assignment = DetailTask::with(['user', 'group'])->where('uid', $id);
+        $detail_assignment = DetailTask::with('group')->where('uid', $id);
+        $current_assignment = ListTask::where('task_id', $id)
+            ->where('user_id', $data->uid);
 
         // Check data assignment
-        if (!$detail_assignment->exists()) {
+        if (!$detail_assignment->exists() || !$current_assignment->exists()) {
             return redirect()->route('list_assignment.index_student')->with(['error', 'Detail assignment tidak ditemukan']);
         }
 
         $detail_assignment = $detail_assignment->first();
+        $current_assignment = $current_assignment->first();
 
         return view("content.student.assignment.submit_assignment", [
             'detail_assignment' => $detail_assignment
@@ -110,21 +137,21 @@ class ListTaskController extends Controller
         }
 
         $this->validate($request, [
-            'student_assignment_file'     => 'required|mimes:pdf|max:10000',
+            'student_assignment_file' => 'required|mimes:pdf|max:10000'
         ]);
 
-        // Get detail assignment
-        $detail_assignment = ListTask::where('uid', $id);
-
-        // Check data assignment
-        if (!$detail_assignment->exists()) {
-            return redirect()->route('list_assignment.index_student')->with(['error', 'Detail assignment tidak ditemukan']);
+        // Check assignment assignment
+        $is_submit = ListTask::where('user_id', $data->uid)
+            ->where('task_id', $id);
+        if ($is_submit->exists()) {
+            return redirect()->route('list_assignment.index_student')->with(['error', 'User telah menyelesaikan tugas']);
         }
 
         $utility = new Utility();
 
-        $detail_assignment = $detail_assignment->first();
-        $detail_assignment->update([
+        ListTask::create([
+            'task_id' => $id,
+            'user_id' => $data->uid,
             'file_submitted' => $request->student_assignment_file,
             'submitted_at' => $utility->get_current_time()
         ]);
@@ -160,7 +187,7 @@ class ListTaskController extends Controller
             $assignment[$index]['total_participant'] = count($current_groups_participant->get());
 
             // Submitted participant
-            $current_submitted_participant = ListTask::where('group_id', $assignment[$index]->group->uid);
+            $current_submitted_participant = ListTask::where('task_id', $assignment[$index]->uid);
             $assignment[$index]['submitted_participant'] = count($current_submitted_participant->get());
         }
 

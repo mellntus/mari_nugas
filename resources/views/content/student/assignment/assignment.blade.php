@@ -19,21 +19,32 @@
             </thead>
             <tbody>
                 {{-- Foreach Here --}}
-                @forelse ($assignments as $assignment)
-                    <tr>
-                        <th scope="row"></th>
-                        <td>{{ $assignment->task->title }}</td>
-                        <td>{{ $assignment->group->title }}</td>
-                        <td>Not Done</td>
-                        <td>{{ $assignment->task->due_date }}</td>                        
-                        <td>
-                            <div class="d-flex">
-                                <a href={{ url('/student/assignment/'.$assignment->task->uid.'/detail') }}>View</a>
-                                <a href={{ url('/student/assignment/'.$assignment->task->uid.'/prepare') }}>Submit</a>
-                            </div>
-                        </td>                        
-
-                    </tr>
+                @forelse ($groups as $group)
+                    @forelse ($group['task'] as $task)    
+                        <tr>
+                            <th scope="row"></th>
+                            <td>{{ $task->title }}</td>
+                            <td>{{ $task->group->title }}</td>
+                            @if (empty($task->status))
+                                <td style="background-color: red">
+                                    <strong>Not Submitted</strong>
+                                </td>
+                            @else    
+                                <td style="background-color: green">
+                                    <strong>Submitted</strong>
+                                </td>
+                            @endif
+                            </td>
+                            <td>{{ $assignment->task->due_date }}</td>                        
+                            <td>
+                                <div class="d-flex">
+                                    <a href={{ url('/student/assignment/'.$assignment->task->uid.'/detail') }}>View</a>
+                                    <a href={{ url('/student/assignment/'.$assignment->task->uid.'/prepare') }}>Submit</a>
+                                </div>
+                            </td>                        
+                        </tr>
+                    @empty
+                    @endforelse
                 @empty
                 <tr>
                     <div class="alert alert-danger">
@@ -41,27 +52,6 @@
                     </div>
                 </tr>
                 @endforelse
-            <tr>
-                <th scope="row"></th>
-                <td>Lorem Ipsum</td>
-                <td style="background-color: green"><strong>Submitted</strong></td>
-                <td>2023-12-09</td>
-                <td><a href="/student/assignment/id/detail">View</a><span>          <a href="/student/assignment/id/submit">Submit</a></span></td>
-            </tr>
-            <tr>
-                <th scope="row"></th>
-                <td>Dolored Lamu</td>
-                <td style="background-color: red"><strong>Expired</strong></td>
-                <td>2023-12-09</td>
-                <td><a href="/student/assignment/id/detail">View</a><span>          <a href="/student/assignment/id/submit">Submit</a></span></td>
-            </tr>
-            <tr>
-                <th scope="row"></th>
-                <td>Skuknu Rekmend</td>
-                <td style="background-color: red"><strong>Not Submitted</strong></td>
-                <td>2023-12-09</td>
-                <td><a href="/student/assignment/id/detail">View</a><span>          <a href="/student/assignment/id/submit">Submit</a></span></td>
-            </tr>
             </tbody>
         </table>
     </div>

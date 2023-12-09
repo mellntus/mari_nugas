@@ -49,7 +49,13 @@
                     <h5>Status</h5>
                 </div>
                 <div class="col-9">
-                    <h5>: Submitted</h5>
+                    <h5>: 
+                        @if (empty($current_assignment))
+                            Not Submitted
+                        @else    
+                            Submitted
+                        @endif
+                    </h5>
                 </div>
             </div>
             <div class="row detail-assignment-data py-2">
@@ -66,10 +72,10 @@
                 </div>
                 <div class="col-9">
                     <h5>: 
-                        @if (empty($current_assignment->file_submitted))
+                        @if (empty($current_assignment))
                             -
                         @else
-                            <a href="{{ url('/student/assignment/submitted/'.$detail_assignment->uid.'/show') }}">
+                            <a href="{{ url('/student/assignment/'.$detail_assignment->uid.'/submitted/'.$current_assignment->user_id.'/download') }}">
                                 Submitted File
                             </a>
                         @endif
