@@ -21,8 +21,8 @@
                     <tr>
                         <th scope="row"></th>
                         <td>{{ $participant->user->name }}</td>
-                        <td><a href="{{ url('/teacher/assignment/'.$participant->task_id.'/submitted/'.$participant->participant_id.'/show') }}">
-                            File Sample
+                        <td><a href="{{ url('/teacher/assignment/'.$participant->task_id.'/submitted/'.$participant->participant_id.'/download') }}">
+                            {{ $participant->file_submitted }}
                         </a></td>
                         <td>{{ $participant->submitted_at }}</td>
                     </tr>

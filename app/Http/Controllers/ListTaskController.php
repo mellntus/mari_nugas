@@ -208,6 +208,7 @@ class ListTaskController extends Controller
         if ($request->hasFile('teacher_assignment_file')) {
             $sample_file = $request->file('teacher_assignment_file');
             $sample_file->storeAs('public/assignment', $sample_file->hashName());
+            $sample_file = $sample_file->hashName();
         }
 
         $utility = new Utility();
@@ -220,7 +221,7 @@ class ListTaskController extends Controller
             'title' => $request->create_assignment_title,
             'description' => $request->create_assignment_description,
             'due_date' => $request->create_assignment_date,
-            'task_sample' => $sample_file->hashName()
+            'task_sample' => $sample_file
         ]);
 
         return redirect()->route('list_assignment.index_teacher')->with('success', 'Berhasil membuat assignment');
@@ -302,7 +303,7 @@ class ListTaskController extends Controller
             ]);
         }
 
-        return redirect()->route('list_assignment.index_teacher')->with(['success', 'Berhasil mengumpulkan tugas']);
+        return redirect()->route('list_assignment.index_teacher')->with(['success', 'Berhasil mengubah tugas']);
     }
 
     public function status_assignment_teacher($id)
@@ -321,6 +322,28 @@ class ListTaskController extends Controller
         return view("content.teacher.assignment.status_assignment", [
             'participants' => $participant
         ]);
+    }
+
+    public function delete_assignment_teacher($id)
+    {
+        // Get from current session
+        $data = Auth::user();
+
+        // Check roles
+        if ($data->roles->name != "teacher") {
+            return redirect()->route('list_assignment.index_student');
+        }
+
+        // Get all groups participant
+        $assignment = DetailTask::where('uid', $id);
+
+        if (!$assignment->exists()) {
+            return redirect()->route('list_assignment.index_teacher')->with('error', 'Gagal menghapus assignment');
+        }
+
+        //delete post
+        $assignment->delete();
+        return redirect()->route('list_assignment.index_teacher')->with('success', 'Berhasil menghapus assignment');
     }
 
     public function show_file_submitted($task_id, $participant_id)

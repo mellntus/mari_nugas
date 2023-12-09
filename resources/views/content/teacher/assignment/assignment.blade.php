@@ -30,6 +30,7 @@
                         <td>
                             <a href={{ url('/teacher/assignment/'.$assignment->uid.'/detail') }}>View</a>
                             <a href={{ url('/teacher/assignment/'.$assignment->uid.'/status') }}>Status</a>
+                            <a href={{ url('/teacher/assignment/'.$assignment->uid.'/delete') }}>Delete</a>
                         </td>
                     </tr>
                 @empty

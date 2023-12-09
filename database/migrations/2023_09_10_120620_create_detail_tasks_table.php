@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('description');
             $table->date('due_date');
             $table->timestamps();
-            $table->string('task_sample');
+            $table->string('task_sample')->nullable();
         });
     }
 
