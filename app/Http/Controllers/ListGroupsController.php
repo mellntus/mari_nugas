@@ -142,7 +142,7 @@ class ListGroupsController extends Controller
             'owner_id' => $data->uid
         ]);
 
-        return redirect()->route('list_group.index_teacher')->with('success', 'Sukses membuat group');
+        return redirect()->route('list_group.index_teacher')->with(['success' => 'Sukses membuat group']);
     }
 
     public function invite_study_groups_teacher(Request $request, $id)
@@ -156,20 +156,26 @@ class ListGroupsController extends Controller
         }
 
         // Check if user tag is exists
-        $check_user = User::where('tag', $request->invite_student_tags);
+        $check_user = User::with('roles')
+            ->where('tag', $request->invite_student_tags);
 
         // Validate
         if (!$check_user->exists())
-            return redirect()->route('list_group.detail_study_groups_teacher', $id)->with('error', 'User not found');
+            return back()->with(['error' => 'User not found']);
 
         $check_user = $check_user->first();
+
+        // Check user roles
+        if ($check_user->roles->name == 'teacher') {
+            return back()->with(['error' => 'User roles is teacher']);
+        }
 
         // Check if user already inside the group or not
         $participant = ListGroups::where('participant_id', $check_user->uid);
 
         // Validate
         if ($participant->exists()) {
-            return redirect()->route('list_group.detail_study_groups_teacher', $id)->with('error', 'User was already inside');
+            return back()->with(['error' => 'User was already inside']);
         }
 
         // Set to api
@@ -178,7 +184,7 @@ class ListGroupsController extends Controller
             'participant_id' => $check_user->uid,
         ]);
 
-        return redirect()->route('list_group.detail_study_groups_teacher', $id)->with('success', 'Berhasil menambahkan user');
+        return back()->with(['success' => 'Berhasil menambahkan user']);
     }
 
     /**
@@ -200,7 +206,7 @@ class ListGroupsController extends Controller
 
         // Validate
         if (!$detail_group->exists()) {
-            return redirect()->route('list_group.index_student')->with('error', 'Data groups tidak ditemukan');
+            return redirect()->route('list_group.index_student')->with(['error' => 'Data groups tidak ditemukan']);
         }
 
         $detail_group = $detail_group->first();
@@ -216,7 +222,7 @@ class ListGroupsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit_study_groups_teacher(Request $request, $id)
+    public function edit_study_groups_teacher($id)
     {
         // Get from current session
         $data = Auth::user();
@@ -231,7 +237,7 @@ class ListGroupsController extends Controller
 
         // Validate
         if (!$groups->exists()) {
-            return redirect()->route('list_group.index_teacher')->with('error', 'Gagal mendapatkan detail group');
+            return redirect()->route('list_group.index_teacher')->with(['error' => 'Gagal mendapatkan detail group']);
         }
 
         return view('content.teacher.study_group.edit_study_groups', [
@@ -264,10 +270,10 @@ class ListGroupsController extends Controller
                 'description' => $request->edit_study_groups_description
             ]);
 
-            return redirect()->route('list_group.index_teacher')->with('success', 'Sukses mengedit group');
+            return redirect()->route('list_group.index_teacher')->with(['success' => 'Sukses mengedit group']);
         }
 
-        return redirect()->route('list_group.index_teacher')->with('error', 'Gagal mengedit group');
+        return redirect()->route('list_group.index_teacher')->with(['error' => 'Gagal mengedit group']);
     }
 
     /**
@@ -275,6 +281,23 @@ class ListGroupsController extends Controller
      */
     public function teacher_kick_student(Request $request, $id)
     {
-        //
+        // Get from current session
+        $data = Auth::user();
+
+        // Check roles
+        if ($data->roles->name != "teacher") {
+            return redirect()->route('list_group.index_student');
+        }
+
+        // Get Detail Group
+        $groups = ListGroups::where('participant_id', $id)
+            ->where('group_id', $request->group_id);
+
+        if ($groups->exists()) {
+            $groups = $groups->first();
+            $groups->delete();
+            return back()->with(['success' => 'Sukses mengeluarkan anggota dari grup']);
+        }
+        return back()->with(['error' => 'Gagal mengeluarkan anggota dari grup']);
     }
 }

@@ -42,7 +42,7 @@ class ListTaskController extends Controller
                 ->get();
 
             // Check status submitted assignment
-            for ($submit_count = 1; $submit_count <= count($groups); $submit_count++) {
+            for ($submit_count = 1; $submit_count <= count($detail_task); $submit_count++) {
                 $index_submit = $submit_count - 1;
                 // Submitted task
                 $submitted_task = ListTask::where('user_id', $data->uid)

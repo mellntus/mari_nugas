@@ -53,9 +53,14 @@
                         <td>{{ $participant->participant->username }}</td>
                         <td><strong>{{ $participant->participant->tag }}</strong></td>
                         <td>
-                            <div class="d-flex">
-                                <a href={{ route('list_group.kick', $participant) }}>KICK</a>
-                            </div>
+                            <form action="{{ url('/teacher/kick/'.$participant->participant_id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <input type="hidden" name="group_id" value="{{ $participant->group_id }}">
+                                <div class="kick-button">
+                                    <button class="btn btn-danger" type="submit">KICK</button>
+                                </div>
+                            </form>
                         </td>
                     </tr>
                 @empty
@@ -67,5 +72,18 @@
                 @endforelse
             </tbody>
         </table>
+        @if (session()->has('success'))
+            <div class="alert alert-success  fade show" role="alert" style="display: flex; justify-content: space-between">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        @if (session()->has('error'))
+            <div class="alert alert-danger fade show" role="alert" style="display: flex; justify-content: space-between">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
     </div>
 @endsection

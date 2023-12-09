@@ -101,11 +101,11 @@ Route::group(['middleware' => ['auth']], (function () {
     Route::get('/teacher/study_groups', [ListGroupsController::class, 'index_teacher'])->name('list_group.index_teacher'); #
     Route::get('/teacher/study_groups/prepare', [ListGroupsController::class, 'prepare_study_groups_teacher'])->name('list_group.prepare_study_groups_teacher'); #
     Route::post('/teacher/study_groups/create', [ListGroupsController::class, 'create_study_groups_teacher'])->name('list_group.create_study_groups_teacher'); #
-    Route::get('/teacher/study_groups/{id}/detail', [ListGroupsController::class, 'detail_study_groups_teacher'])->name('list_group.detail_study_groups_teacher'); ##
+    Route::get('/teacher/study_groups/{id}/detail', [ListGroupsController::class, 'detail_study_groups_teacher'])->name('list_group.detail_study_groups_teacher'); #
     Route::get('/teacher/study_groups/{id}/edit', [ListGroupsController::class, 'edit_study_groups_teacher'])->name('list_group.edit_study_groups_teacher'); #
     Route::put('/teacher/study_groups/{id}/update', [ListGroupsController::class, 'update_study_groups_teacher'])->name('list_group.update_study_groups_teacher'); #
-    Route::post('/teacher/study_groups/{id}/invite', [ListGroupsController::class, 'invite_study_groups_teacher'])->name('list_group.invite_study_groups_teacher'); ##
-    Route::delete('/teacher/study_groups/{id}/kick', [ListGroupsController::class, 'teacher_kick_student'])->name('list_group.teacher_kick_student'); ##
+    Route::post('/teacher/study_groups/{id}/invite', [ListGroupsController::class, 'invite_study_groups_teacher'])->name('list_group.invite_study_groups_teacher'); #
+    Route::delete('/teacher/kick/{data}', [ListGroupsController::class, 'teacher_kick_student'])->name('list_group.teacher_kick_student'); #
 
 
     // Download File
@@ -116,53 +116,3 @@ Route::group(['middleware' => ['auth']], (function () {
     Route::get('/teacher/assignment/sample/{id}/show', [ListTaskController::class, 'show_file_sample'])->name('list_assignment.show_file_sample'); #
     Route::get('/teacher/assignment/{task_id}/submitted/{participant_id}/show', [ListTaskController::class, 'show_file_submitted'])->name('list_assignment.show_file_submitted'); #
 }));
-
-// // Resource
-// Route::resource('profile', ProfileController::class, [
-//     'names' => [
-//         'index' => 'profile.index',
-//         'edit' => 'generated::PssNejvENd2NFgva',
-//         'update' => 'generated::O5xITVJBl7zXwraG',
-//         'password' => 'generated::Z28n51uPEZuLsft8',
-//         'update_password' => 'generated::0mBuqMshBxbHcEsB'
-//     ]
-// ]);
-// Route::resource('notes', NotesController::class, [
-//     'names' => [
-//         'index' => 'notes.index',
-//         'create' => 'generated::nqFSk37JeDabLxPq',
-//         'prepare' => 'generated::6VLuiRJ7z4cu7pXD',
-//         'edit' => 'generated::TtDvFRffd49841or',
-//         'update' => 'generated::FkgYqAqWVJ9yr0dT',
-//         'destroy' => 'generated::kKhvzrEBYaKtVVu0'
-//     ]
-// ]);
-// Route::resource('list_assignment', ListTaskController::class, [
-//     'names' => [
-//         'index_student' => 'generated::L6LmSDzeX8GRtecs',
-//         'show_assignment_student' => 'generated::xlCpNu5dxZRmnSne',
-//         'prepare_assignment_student' => 'generated::HzJgAil3ZpJ6eNX3',
-//         'update_assignment_student' => 'generated::33PRJIuilMzWAQQb',
-//         'index_teacher' => 'generated::17JPqnUZDqgxbwv7',
-//         'prepare_assignment_teacher' => 'generated::8dmzUt5d9BJeV7Aq',
-//         'create_assignment_teacher' => 'generated::13Sfe7OYYTgrz3yI',
-//         'show_assignment_teacher' => 'generated::HZMj9hBhjZVlZ6bd',
-//         'update_assignment_teacher' => 'generated::4lBqeS4PM1KQsJYC',
-//         'status_assignment_teacher' => 'generated::IIn0bTt5JzVfgE2E'
-//     ]
-// ]);
-// Route::resource('list_group', ListGroupsController::class, [
-//     'names' => [
-//         'index_student' => 'generated::p4auE8TV26j06qri',
-//         'left_group_student' => 'generated::pi0FmKXxmYaBTsBP',
-//         'index_teacher' => 'generated::Vr3895JO5Nb2Jr3l',
-//         'prepare_study_groups_teacher' => 'generated::rDjaoQ6LBFc1e0E0',
-//         'create_study_groups_teacher' => 'generated::FG1RUZ0X0R4Oiq74',
-//         'invite_study_groups_teacher' => 'notes.index',
-//         'detail_study_groups_teacher' => 'notes.index',
-//         'edit_study_groups_teacher' => 'notes.index',
-//         'update_study_groups_teacher' => 'notes.index',
-//         'teacher_kick_student' => 'notes.index',
-
-//     ]
-// ]);
