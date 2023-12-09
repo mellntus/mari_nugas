@@ -94,7 +94,7 @@ class ListGroupsController extends Controller
             // Get all detail participants
             for ($count = 1; $count <= count($list_groups); $count++) {
                 $index = $count - 1;
-                $current_groups_participant = ListGroups::where('group_id', $list_groups[$index]->group_id);
+                $current_groups_participant = ListGroups::where('group_id', $list_groups[$index]->uid);
                 $list_groups[$index]['total_participant'] = count($current_groups_participant->get());
             }
         }
@@ -123,8 +123,8 @@ class ListGroupsController extends Controller
     public function create_study_groups_teacher(Request $request)
     {
         $request->validate([
-            'title' => 'required',
-            'description' => 'required',
+            'create_study_groups_title' => 'required',
+            'create_study_groups_description' => 'required',
         ]);
 
         // Get from current session
@@ -259,8 +259,8 @@ class ListGroupsController extends Controller
     public function update_study_groups_teacher(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required',
-            'description' => 'required'
+            'edit_study_groups_title' => 'required',
+            'edit_study_groups_description' => 'required'
         ]);
 
         // Get from current session

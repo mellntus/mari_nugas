@@ -226,10 +226,10 @@ class ListTaskController extends Controller
     public function create_assignment_teacher(Request $request)
     {
         $request->validate([
-            'group_id' => 'required',
-            'title' => 'required',
-            'description' => 'required',
-            'due_date' => 'required'
+            'create_assignment_study_groups' => 'required',
+            'create_assignment_title' => 'required',
+            'create_assignment_description' => 'required',
+            'create_assignment_date' => 'required'
         ]);
 
         // Get from current session
@@ -299,9 +299,9 @@ class ListTaskController extends Controller
     public function update_assignment_teacher(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'due_date' => 'required'
+            'edit_assignment_title' => 'required',
+            'edit_assignment_description' => 'required',
+            'edit_assignment_date' => 'required'
         ]);
 
         // Get from current session
