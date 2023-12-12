@@ -40,6 +40,10 @@ class ProfileController extends Controller
 
     public function update(Request $request): RedirectResponse
     {
+        $request->validate([
+            'profile_address' => 'required'
+        ]);
+
         // Get from current session
         $data = Auth::user();
 

@@ -36,7 +36,7 @@
                         <h4>ADDRESS</h4>
                     </div>
                     <div class="col-9">
-                        <textarea id="profile_address" name="profile_address" style="width: -webkit-fill-available; max-height: 200px" required>{{ $user->address }}</textarea>
+                        <textarea id="profile_address @error('profile_address') is-invalid @enderror" name="profile_address" style="width: -webkit-fill-available; max-height: 200px" required>{{ $user->address }}</textarea>
                     </div>
                 </div>
                 <div class="row profile-detail py-2">
@@ -59,6 +59,11 @@
                     <button class="btn btn-success" type="submit">SAVE</button>
                 </div>
             </form>
+            @error('profile_address')
+                <div class="alert alert-danger mt-2">
+                    {{ $message }}
+                </div>
+            @enderror
             @if (session()->has('success'))
                 <div class="alert alert-success  fade show" role="alert" style="display: flex; justify-content: space-between">
                     {{ session('success') }}
